@@ -23,7 +23,9 @@ test.beforeEach(async ({ page }) => {
 
 test.describe("Knowledge Base — UI", () => {
   test("DC-KB-01: route loads with left rail", async ({ page }) => {
-    await expect(page.locator("h2", { hasText: "Knowledge Bases" })).toBeVisible();
+    await expect(
+      page.locator("h2", { hasText: /Local Docs & RAG|Knowledge Bases/ })
+    ).toBeVisible();
     await expect(page.getByRole("button", { name: /^New$/ })).toBeVisible();
   });
 

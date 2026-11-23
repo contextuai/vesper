@@ -150,7 +150,9 @@ test.describe("Positive Workflows", () => {
   test("DC-SETTINGS-10: about tab shows version info", async ({ page }) => {
     await settings.switchTab("About");
 
-    await expect(page.getByRole("heading", { name: /ContextuAI Solo/i })).toBeVisible();
+    await expect(
+      page.getByRole("heading", { name: /Vesper|ContextuAI Solo/i })
+    ).toBeVisible();
     await expect(settings.versionText).toBeVisible();
 
     await expect(page.locator("text=Built with")).toBeVisible();

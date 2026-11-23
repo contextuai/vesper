@@ -18,7 +18,9 @@ export class PersonasPage {
   // ── Locators ────────────────────────────────────────────────────
 
   get createButton(): Locator {
-    return this.page.getByRole("button", { name: /create connector/i }).first();
+    return this.page
+      .getByRole("button", { name: /add mcp \/ connector|create connector/i })
+      .first();
   }
 
   get searchInput(): Locator {

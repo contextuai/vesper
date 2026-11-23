@@ -217,7 +217,7 @@ test.describe("Positive Workflows", () => {
     await page.goto("/");
     await page.waitForLoadState("networkidle");
 
-    const connectorSelector = page.locator("button").filter({ hasText: /connector/i }).first();
+    const connectorSelector = page.locator("button", { hasText: /^Connector$/ }).first();
     await connectorSelector.click();
     await page.waitForTimeout(500);
 

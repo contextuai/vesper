@@ -3,20 +3,14 @@ import { type Page, type Locator, expect } from "@playwright/test";
 /**
  * Page object for testing desktop sidebar navigation.
  *
- * Phase 6: sidebar restored to 10 items (Chat, Knowledge, Connectors,
- * Agents, Automations, Workspace, Approvals, Distributions, Models,
- * Settings), plus a collapse/expand toggle and connection status.
+ * Vesper v1.2.0: 5 core sidebar tabs (Chat, Local Docs, Models, Tools & MCP,
+ * Settings), with Advanced Mode gating optional workforce tabs.
  */
 export const EXPECTED_NAV_LABELS = [
   "Chat",
-  "Knowledge",
-  "Connectors",
-  "Agents",
-  "Automations",
-  "Workspace",
-  "Approvals",
-  "Distributions",
+  "Local Docs",
   "Models",
+  "Tools & MCP",
   "Settings",
 ] as const;
 
