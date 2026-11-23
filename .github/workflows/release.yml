@@ -382,41 +382,43 @@ jobs:
         shell: bash
         run: |
           VERSION="${RELEASE_TAG#v}"
-          REPO="contextuai/contextuai-solo"
+          REPO="contextuai/vesper"
           BASE_URL="https://github.com/$REPO/releases/download/$RELEASE_TAG"
           DATE=$(date -u +"%Y-%m-%dT%H:%M:%SZ")
           NOTES=$(gh release view "$RELEASE_TAG" --json body -q .body 2>/dev/null || echo "")
 
-          # Read signature files
-          read_sig() { cat "release-assets/$1" 2>/dev/null || echo ""; }
+          python3 - "$VERSION" "$BASE_URL" "$DATE" "$NOTES" <<'PY' > latest.json
+          import json
+          import sys
+          from pathlib import Path
 
-          NSIS_SIG=$(read_sig "Vesper_${VERSION}_x64-setup.exe.sig")
-          MAC_SIG=$(read_sig "Vesper.app.tar.gz.sig")
-          APPIMAGE_SIG=$(read_sig "Vesper_${VERSION}_amd64.AppImage.sig")
+          version, base_url, pub_date, notes = sys.argv[1:5]
+          assets_dir = Path("release-assets")
+          candidates = {
+              "windows-x86_64": f"Vesper_{version}_x64-setup.exe",
+              "darwin-aarch64": "Vesper.app.tar.gz",
+              "linux-x86_64": f"Vesper_{version}_amd64.AppImage",
+          }
 
-          python3 -c "
-          import json, sys
-          notes = sys.argv[1]
-          print(json.dumps({
-            'version': '$VERSION',
-            'notes': notes,
-            'pub_date': '$DATE',
-            'platforms': {
-              'windows-x86_64': {
-                'signature': '$NSIS_SIG',
-                'url': '$BASE_URL/Vesper_${VERSION}_x64-setup.exe'
-              },
-              'darwin-aarch64': {
-                'signature': '$MAC_SIG',
-                'url': '$BASE_URL/Vesper.app.tar.gz'
-              },
-              'linux-x86_64': {
-                'signature': '$APPIMAGE_SIG',
-                'url': '$BASE_URL/Vesper_${VERSION}_amd64.AppImage'
+          platforms = {}
+          for platform, filename in candidates.items():
+              artifact_path = assets_dir / filename
+              if not artifact_path.is_file():
+                  continue
+              sig_path = assets_dir / f"{filename}.sig"
+              signature = sig_path.read_text(encoding="utf-8").strip() if sig_path.is_file() else ""
+              platforms[platform] = {
+                  "signature": signature,
+                  "url": f"{base_url}/{filename}",
               }
-            }
+
+          print(json.dumps({
+              "version": version,
+              "notes": notes,
+              "pub_date": pub_date,
+              "platforms": platforms,
           }, indent=2))
-          " "$NOTES" > latest.json
+          PY
 
           cat latest.json
           gh release upload "$RELEASE_TAG" latest.json --clobber
