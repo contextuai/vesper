@@ -1,6 +1,6 @@
 # Model Hub
 
-The Model Hub lets you configure which AI models are available in ContextuAI Solo. You can use cloud providers (requires API keys) or download free local models that run entirely on your machine.
+The **Models** / Model Hub view lets you configure which AI models are available in **Vesper**. You can download free local GGUF models that run on your hardware (with automatic RAM/VRAM fit scoring) or connect cloud providers via BYOK API keys.
 
 ![Model Hub](../screenshots/002-ModelHub-Selection.png)
 
@@ -8,14 +8,14 @@ The Model Hub lets you configure which AI models are available in ContextuAI Sol
 
 ## Getting Started
 
-1. Navigate to **Settings > AI Providers**.
-2. Choose a provider and expand its card.
-3. Enter your API key (for cloud providers) or download a model (for local AI).
-4. Test the connection, then head to Chat to start using it.
+1. Open **Models** in the sidebar (or **Settings > AI Providers** for cloud keys).
+2. Browse recommended local GGUF models or expand a cloud provider card.
+3. Download a local model or enter your API key and click **Test Connection**.
+4. Head to **Chat** to start using it.
 
 ## Cloud Providers
 
-ContextuAI Solo supports 6 cloud AI providers:
+Vesper supports 6 cloud AI provider types under **Settings > AI Providers**:
 
 | Provider | Models | Key Required |
 |----------|--------|-------------|

@@ -1,33 +1,31 @@
-# Personas
+# Tools & MCP (Connectors)
 
-Personas are specialized AI personalities you can create and assign to chat conversations. Each persona has a type, custom instructions, and optional credentials for connecting to databases or external services.
+> **Vesper v1.2.0 Note:** Legacy SQL warehouse connectors (`PostgreSQL`, `MySQL`, `MSSQL`, `Snowflake`) were retired in Vesper v1.2.0. Use **MCP Server** presets or custom REST API connectors below instead.
 
-![Personas](../screenshots/004-Personas.png)
+**Tools & MCP** (`/personas`) lets you create and manage Model Context Protocol (MCP) servers, web search connectors, REST API tools, file tools, and custom instruction assistants you can attach directly inside Chat.
+
+![Tools & MCP](../screenshots/004-Personas.png)
 
 ---
 
 ## Getting Started
 
-1. Navigate to **Personas** from the sidebar.
-2. Browse your existing personas or click **Create Persona**.
-3. Once created, select a persona from the Chat input area to use it in conversations.
+1. Navigate to **Tools & MCP** from the sidebar.
+2. Pick a 1-click quick-start preset (**Local Filesystem MCP**, **Git / Repo MCP**, **Web Search & Grounding**) or click **Add MCP / Connector**.
+3. Once created, select your connector from the **Connector** dropdown in Chat.
 
-## Persona Types
+## Connector Types
 
-ContextuAI Solo includes 10 persona types, each designed for a different use case:
+Vesper focuses on lightweight, local-first connectors and assistants:
 
 | Type | What it does |
 |------|-------------|
-| **Nexus Agent** | General-purpose AI with custom expertise, personality, and style |
+| **MCP Server** | Connects to stdio or SSE Model Context Protocol servers for external tools |
 | **Web Researcher** | Searches the web, fetches URLs, and extracts information |
-| **PostgreSQL** | Connects to PostgreSQL databases for queries and analysis |
-| **MySQL** | Connects to MySQL databases |
-| **MSSQL** | Connects to Microsoft SQL Server |
-| **Snowflake** | Connects to Snowflake cloud data warehouse |
-| **MongoDB** | Connects to MongoDB NoSQL databases |
-| **MCP Server** | Connects to Model Context Protocol servers for external tools |
 | **API Connector** | Connects to REST APIs, GraphQL endpoints, and webhooks |
-| **File Operations** | Reads, writes, and manages files in a directory |
+| **File Operations** | Reads, writes, and manages files in an allowed directory |
+| **MongoDB** | Connects to MongoDB NoSQL databases |
+| **Custom Assistant** | Custom instructions, expertise, and behavior prompts |
 
 ## Creating a Persona
 
@@ -59,35 +57,34 @@ Click **Create** to save.
 
 ### Test Connection
 
-For database and integration types (PostgreSQL, MySQL, MSSQL, Snowflake, MongoDB, MCP Server), a **Test Connection** button lets you verify credentials before saving. It shows connection details like response time and database version on success.
+For integration types (MongoDB, MCP Server, API Connector), a **Test Connection** button lets you verify credentials before saving.
 
-## Managing Personas
+## Managing Connectors
 
 ### Editing
 
-Hover over a persona card and click the **pencil icon** to edit. The edit form opens directly on Step 2 with all fields pre-populated.
+Hover over a connector card and click the **pencil icon** to edit. The edit form opens directly on Step 2 with all fields pre-populated.
 
 ### Deleting
 
-Hover over a persona card and click the **trash icon**. A confirmation dialog appears — click **Delete** to confirm.
+Hover over a connector card and click the **trash icon**. A confirmation dialog appears — click **Delete** to confirm.
 
 ### Searching and Filtering
 
-- **Search** — Use the search box to filter personas by name or description.
+- **Search** — Use the search box to filter connectors by name or description.
 - **Category filter** — Click a category button (All, General, Technical, Creative, Business, Custom) to filter by category.
 - Both filters work together.
 
-## Using Personas in Chat
+## Using Connectors in Chat
 
 1. Open the **Chat** page.
-2. Click the **persona dropdown** in the input area.
-3. Select a persona — the AI will now follow that persona's instructions.
-4. Select **"None (default)"** to return to the standard AI behavior.
+2. Click the **Connector** dropdown in the input area.
+3. Select a connector — Vesper will attach its tools and system prompt to the conversation.
+4. Select **"None (default)"** to return to standard chat behavior.
 
 ## Tips
 
-- **Start with a Nexus Agent** if you just want to customize the AI's personality and expertise without connecting to external services.
-- **Use database personas** to ask questions about your data in plain English — the AI translates your questions into SQL.
-- **Keep system prompts specific** — the more detailed your instructions, the more consistent the AI's behavior.
+- **Start with an MCP preset** (**Local Filesystem MCP** or **Git / Repo MCP**) to give Vesper tool access to your files or repo cleanly.
+- **Keep system prompts specific** — the more detailed your instructions, the more consistent the assistant's behavior.
 - **Test connections before chatting** — it's frustrating to discover bad credentials mid-conversation.
-- **Create category-specific personas** (e.g., "Marketing Writer", "Finance Analyst") to quickly switch between different work contexts.
+- **Create category-specific connectors** to quickly switch between different work contexts.

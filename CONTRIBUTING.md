@@ -1,25 +1,25 @@
-# Contributing to ContextuAI Solo
+# Contributing to Vesper
 
-Thank you for your interest in contributing to ContextuAI Solo! This document provides guidelines and instructions for contributing.
+Thank you for your interest in contributing to Vesper! This document provides guidelines and instructions for contributing.
 
 ## Getting Started
 
-1. **Fork** the repository on GitHub
+1. **Fork** the repository on GitHub (`contextuai/vesper`)
 2. **Clone** your fork locally:
    ```bash
-   git clone https://github.com/YOUR_USERNAME/solo.git
-   cd solo
+   git clone https://github.com/YOUR_USERNAME/vesper.git
+   cd vesper
    ```
 3. **Create a branch** for your changes:
    ```bash
-   git checkout -b feature/your-feature-name
+   git checkout -b feat/your-feature-name
    ```
 4. **Make your changes** and test them thoroughly
 5. **Commit** with a clear, descriptive message:
    ```bash
-   git commit -m "feat: add new agent for supply chain analysis"
+   git commit -m "feat: add new MCP connector preset"
    ```
-6. **Push** to your fork and **open a Pull Request**
+6. **Push** to your fork and **open a Pull Request** targeting `main`
 
 ## Commit Message Convention
 
@@ -41,13 +41,13 @@ We follow [Conventional Commits](https://www.conventionalcommits.org/):
 - Use functional components with hooks
 - Use the `cn()` utility for conditional Tailwind classes
 - Import paths use the `@/*` alias (maps to `src/*`)
-- Format with Prettier defaults
+- Format cleanly to match surrounding files
 
 ### Python (Backend)
 
 - **Type hints** on all function signatures and return types
 - Use **Pydantic v2** for request/response models
-- All I/O must be **async** (use `await`, async generators for streaming)
+- All I/O should be async where integrated into FastAPI routes
 - Follow PEP 8 naming conventions
 - Docstrings on public functions and classes
 
@@ -56,53 +56,47 @@ We follow [Conventional Commits](https://www.conventionalcommits.org/):
 ### Frontend
 
 ```bash
-cd desktop
-npm run test        # Unit tests
-npx playwright test # E2E tests
+cd frontend
+npx tsc --noEmit    # Type check
+npm run build       # Production Vite bundle
+npx playwright test # E2E tests (requires backend on 18741 & Vite on 1420)
 ```
 
 ### Backend
 
 ```bash
 cd backend
-pytest tests/ -v
+CONTEXTUAI_MODE=desktop pytest tests/ -v
 ```
 
-All pull requests must:
-
-- Pass existing tests (no regressions)
-- Include tests for new features when applicable
-- Pass linting (`npm run lint` for frontend)
+All pull requests must pass existing backend and frontend checks cleanly.
 
 ## What to Contribute
 
-Here are some ideas for contributions:
-
-- **New agents** — Add specialized business agents to the library
-- **Bug fixes** — Check the Issues tab for reported bugs
-- **UI/UX improvements** — Better layouts, animations, accessibility
-- **Documentation** — Improve docs, add examples, fix typos
-- **New AI provider integrations** — Add support for additional model providers
-- **Localization** — Help translate the UI to other languages
-- **Performance** — Optimize rendering, reduce bundle size, improve startup time
+- **MCP & Tool Connectors** — Improve local tool integrations and MCP presets
+- **Local AI & RAG Improvements** — Retrieval quality, quantization support, hardware fit tuning
+- **Privacy & Security Hardening** — Local DLP patterns, audit/ABOM reporting, egress controls
+- **Bug Fixes & UI Polish** — Accessibility, keyboard navigation, responsive layout
+- **Documentation** — Keep guides, examples, and API references up to date
 
 ## Reporting Issues
 
 When reporting a bug, please include:
 
-- Your OS and version
+- Your OS and architecture
+- App version (**Settings → About**)
 - Steps to reproduce the issue
 - Expected behavior vs actual behavior
 - Screenshots or error logs if applicable
 
 ## Code of Conduct
 
-Be respectful, constructive, and inclusive. We are building something together — treat every contributor the way you would want to be treated.
+Be respectful, constructive, and inclusive. Treat every contributor the way you would want to be treated.
 
 ## Questions?
 
-Open a GitHub Discussion or reach out to the maintainers. We're happy to help you get started.
+Open a GitHub Discussion or Issue on [contextuai/vesper](https://github.com/contextuai/vesper).
 
 ---
 
-Thank you for helping make ContextuAI Solo better for everyone!
+Thank you for helping make Vesper better for everyone!

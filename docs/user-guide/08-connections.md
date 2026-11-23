@@ -1,6 +1,16 @@
-# Distributions
+# Distributions (Retired in Vesper v1.2.0)
 
-The **Distributions** page (sidebar entry; URL still `/connections`) lets you integrate ContextuAI Solo with external platforms. Connect to social and outbound channels so your Crews can send and receive messages on your behalf.
+> **Retirement Notice (Vesper v1.2.0):** The **Distributions** page (`/connections`) and social publishing / polling integrations (`LinkedIn`, `Twitter/X`, `Instagram`, `Facebook`, `Reddit`) were retired in Vesper v1.2.0.
+>
+> - Navigating to `/connections` now redirects to `/settings`.
+> - For external tools and local integrations in Vesper, use **Tools & MCP** (`/personas`).
+> - Legacy API endpoints (`/api/v1/connections`, `/api/v1/distribution/channels`, `/api/v1/reddit/*`, `/api/v1/twitter/*`) now return HTTP `404`.
+
+*(Historical documentation retained below for reference.)*
+
+---
+
+The legacy **Distributions** page previously allowed integrating with external platforms via `/connections`.
 
 ![Distributions](../screenshots/012-Connections.png)
 

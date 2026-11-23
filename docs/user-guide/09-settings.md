@@ -1,6 +1,6 @@
 # Settings
 
-Settings is where you configure AI providers, customize your brand voice, adjust the app appearance, and manage your data.
+Settings is where you configure AI providers, customize your brand voice, adjust appearance, export local data, manage privacy/security & ABOM compliance, and toggle developer options.
 
 ![Settings](../screenshots/014-Settings.png)
 
@@ -8,22 +8,22 @@ Settings is where you configure AI providers, customize your brand voice, adjust
 
 ## Getting Started
 
-Navigate to **Settings** from the sidebar. The page has 5 tabs.
+Navigate to **Settings** from the sidebar. The page has **7 tabs**.
 
 ## Tab 1: AI Providers
 
-Configure the AI models available throughout the app. See the [Model Hub guide](02-model-hub.md) for detailed setup instructions.
+Configure the cloud and Ollama AI models available throughout **Vesper** (downloaded GGUF models live under **Models** in the sidebar as well). See the [Model Hub guide](02-model-hub.md) for detailed setup instructions.
 
-**7 provider cards** (Local AI plus 6 provider types):
+**6 cloud/external provider types** alongside built-in Local GGUF models:
 
 | Provider | Key Required | Notes |
 |----------|-------------|-------|
-| Local AI (Built-in) | No | Free GGUF models on your CPU |
+| Local AI (Built-in) | No | Free GGUF models on your GPU (Metal/CUDA/Vulkan) or CPU |
 | Anthropic Claude | Yes | Claude Sonnet, Opus, Haiku |
-| OpenAI | Yes | GPT-4o, GPT-4o mini, O1 |
-| Google Gemini | Yes | Gemini 2.0 Flash/Pro |
-| AWS Bedrock | Yes | Claude 3 via AWS |
-| Ollama | No | Local models via Ollama server. Expand the card, enter your server URL, and click **Test Connection** — Solo probes the running Ollama server and displays a connected/saved indicator once verified, the same as cloud providers. |
+| OpenAI | Yes | GPT-4o, GPT-4o mini, o-series |
+| Google Gemini | Yes | Gemini Flash / Pro |
+| AWS Bedrock | Yes | Bedrock models via AWS credentials |
+| Ollama | No | Local models via Ollama server. Expand the card, enter your server URL, and click **Test Connection** — Vesper probes the running Ollama server and displays a connected/saved indicator once verified |
 | OpenAI-Compatible | No (base URL required, key optional) | Any `/v1` server — vLLM, LM Studio, llama.cpp server, TGI, LiteLLM, OpenRouter |
 
 Anthropic, OpenAI, Google Gemini, and Ollama model lists are discovered live from your account (or your local Ollama server), so they stay in step with what's actually available.
@@ -33,83 +33,51 @@ For each cloud provider:
 2. Paste your API key.
 3. Click **Test Connection** to verify.
 
-### Local AI Models
-
-Expand the **Local AI** card to see downloadable models:
-
-| Model | Size | RAM Needed |
-|-------|------|-----------|
-| Gemma 3 1B | ~1 GB | ~2 GB |
-| Qwen 2.5 1.5B | ~1.5 GB | ~3 GB |
-| Phi-3 Mini | ~2 GB | ~4 GB |
-
-Click **Download** next to a model. Progress is shown in real-time. After downloading, click **Sync** to make the model available in Chat.
-
 ## Tab 2: Brand Voice
 
-Define your business identity so the AI can write in your brand's tone and style.
+Define your business identity so Vesper writes in your brand's tone and style.
 
 **Fields:**
 
 - **Business Name** — your company or brand name
-- **Industry** — select from 12 options (Tech, Marketing, Finance, Healthcare, Education, E-commerce, Creative, Consulting, Legal, Real Estate, Manufacturing, Other)
+- **Industry** — select from 12 options (Technology, Marketing & Advertising, Finance & Banking, Healthcare, Education, E-commerce & Retail, Creative & Design, Consulting, Legal, Real Estate, Manufacturing, Other)
 - **Brand Description** — what your business does and what makes it unique
 - **Target Audience** — who you're writing for
 - **Content Topics** — subjects you frequently cover
 
-A **Brand Voice Preview** updates dynamically as you type, showing how the AI interprets your brand voice settings.
-
-Click **Save Brand Voice** to apply. The brand voice influences AI responses across Chat, Crews, and Workspace.
+A **Brand Voice Preview** updates dynamically as you type. Click **Save Brand Voice** to apply.
 
 ## Tab 3: Appearance
 
-Customize how the app looks.
+Customize how Vesper looks:
 
-### Theme
-
-Choose from:
-- **Light** — white backgrounds, dark text
-- **Dark** — dark backgrounds, light text (easier on the eyes)
-- **System** — follows your OS setting
-
-### Font Size
-
-- **Small** — compact layout
-- **Medium** — default
-- **Large** — easier to read
-
-Changes apply immediately.
+- **Theme**: **Light**, **Dark**, or **System** (follows your OS setting)
+- **Color Theme**: **Vesper Emerald** (default), Warm Ember (Terracotta), Nocturne (Indigo), Cobalt Sapphire, Amethyst Quartz, or Cyber Lagoon
+- **Font Size**: **Small**, **Medium**, or **Large**
 
 ## Tab 4: Data & Export
 
-Manage your local data.
+Manage your local SQLite data:
 
-### Export Data
+- **Export Data**: Downloads a JSON backup of your conversations, connectors, settings, and workflows.
+- **Import from File**: Restores data from a previous JSON backup.
+- **Clear All Data**: Permanently deletes local data after confirmation.
 
-Click **Export Data** to download a JSON backup of all your data (conversations, personas, agents, crews, settings). The file is saved to your Downloads folder with a timestamp in the filename.
+## Tab 5: Security & Audit
 
-### Clear All Data
+Enterprise privacy, redaction, and compliance controls:
 
-Click **Clear All Data** to permanently delete everything. A confirmation dialog appears — this action cannot be undone.
+- **Local DLP (On-Device PII & Secret Redaction)**: Automatically detects and redacts API keys, email addresses, SSNs, and custom organization patterns before prompts leave your machine, with a live redaction tester.
+- **Local SQLite Audit Log & ABOM Export**: Browse recorded inference, tool, DLP, and policy events and export 1-click **JSON** or **CSV** compliance reports plus an **AI Bill of Materials (ABOM)** listing installed GGUF models, SHA-256 digests, Airplane Lock posture, and DLP status.
+- **Enterprise Policy & Model Catalog**: Configure a custom `models.json` URL or local path (works offline under Airplane Lock), toggle **Exclusive Catalog Mode**, inspect IT-locked fields (`policy.json` / env vars), and enforce **SHA-256 verification**.
 
-This resets:
-- All chat sessions and messages
-- All personas, agents, and crews
-- All workspace projects
-- All connections and settings
+## Tab 6: Developer
 
-## Tab 5: About
+- **Local OpenAI `/v1` Server**: Enable or disable Vesper's local `/v1/models`, `/v1/chat/completions`, and `/v1/completions` server on port `18741` (`http://127.0.0.1:18741/v1`) and open the Server Inspector.
+- **Advanced Mode**: Toggle sidebar visibility for **Agents**, **Workspace (Crews)**, **Automations**, **Memory**, and **Approvals** (off by default for a focused 5-tab Vesper experience).
 
-View app information:
+## Tab 7: About
 
-- **App name and version** — current installed version
-- **Check for Updates** — checks if a newer version is available
-- **Built with** — shows the technology stack (React, Tauri, FastAPI) with links to documentation
-
-## Tips
-
-- **Set up at least one AI provider first** — nothing else works without a model.
-- **Fill in your Brand Voice early** — it improves the quality and consistency of all AI outputs.
-- **Export your data regularly** as a backup, especially before clearing data or updating the app.
-- **Dark mode** is recommended for extended use — it reduces eye strain.
-- **Test connections after entering API keys** — a typo in the key will cause all AI features to fail silently.
+- **App name and version** — Vesper (`v1.2.0`)
+- **Edition controls** — Option to **Unlock Full ContextuAI Solo** (or switch back to Vesper Lite view) in-place without losing downloaded models
+- **Updates** — Check if a newer release is available

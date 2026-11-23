@@ -1,280 +1,124 @@
-# ContextuAI Solo
+# Vesper
 
-### The AI team behind every solo business
+### Quiet, sovereign AI on your desktop — by ContextuAI
 
-[![Website](https://img.shields.io/badge/Website-contextuai.com%2Fsolo-FF6B35.svg)](https://contextuai.com/solo)
+[![Website](https://img.shields.io/badge/GitHub-contextuai%2Fvesper-10B981.svg)](https://github.com/contextuai/vesper)
 [![License](https://img.shields.io/badge/License-Apache%202.0%20with%20Commons%20Clause-blue.svg)](LICENSE)
-[![Version](https://img.shields.io/badge/version-1.0.0-brightgreen.svg)]()
+[![Version](https://img.shields.io/badge/version-1.2.0-brightgreen.svg)]()
 [![Tauri](https://img.shields.io/badge/Built%20with-Tauri%20v2-FFC131.svg)](https://tauri.app/)
 [![React](https://img.shields.io/badge/React-19-61DAFB.svg)](https://react.dev/)
 [![FastAPI](https://img.shields.io/badge/FastAPI-Python%203.11+-009688.svg)](https://fastapi.tiangolo.com/)
 [![SQLite](https://img.shields.io/badge/Database-SQLite-003B57.svg)](https://sqlite.org/)
 
-You're one person running a business. You need a marketing strategist, a financial analyst, a legal reviewer, a content writer, and a dozen other specialists — but you can't afford to hire them.
+**Vesper** is a privacy-first desktop AI workstation built for individuals, engineers, and security-conscious teams. Run local GGUF models on your own hardware or bring your own cloud API keys — with private local document RAG, MCP tool calling, on-device PII/secret redaction, zero-egress Airplane Lock, and an exportable SQLite audit log + AI Bill of Materials (ABOM).
 
-**Now you don't have to.** ContextuAI Solo puts an entire team of 96 AI business experts on your desktop. They research, write, analyze, review, and publish — individually or as coordinated crews. And everything stays private on your machine.
+Everything runs locally on your machine. No accounts. No cloud sync. No telemetry.
 
 <p align="center">
-  <a href="https://github.com/contextuai/contextuai-solo/releases/latest"><img src="https://img.shields.io/badge/Download-Latest%20Release-FF6B35?style=for-the-badge&logo=github" alt="Download Latest Release"></a>
+  <a href="https://github.com/contextuai/vesper/releases/latest"><img src="https://img.shields.io/badge/Download-Latest%20Release-10B981?style=for-the-badge&logo=github" alt="Download Latest Release"></a>
 </p>
 
-> **Ready to try it?** Download the installer for your platform from the [Releases page](https://github.com/contextuai/contextuai-solo/releases/latest) — Windows (.exe/.msi), macOS (.dmg), or Linux (.deb/.rpm). No build steps required.
+> **Ready to try it?** Download the installer for your platform from the [Releases page](https://github.com/contextuai/vesper/releases/latest) — Windows (`.exe`/`.msi`), macOS (`.dmg`), or Linux (`.deb`/`.rpm`). No build steps required.
 >
-> **New here?** Read the [User Guide](docs/user-guide/README.md) to get started, or the [Deep Strategy Playbook (PDF)](https://github.com/contextuai/contextuai-solo/releases/latest/download/ContextuAI_Solo_Deep_Strategy_Playbook.pdf) for a full overview.
+> **New here?** Read the [User Guide](docs/user-guide/README.md) to get started.
 
-> **Which model should I run?** For best results, download **Qwen 3 8B** (8 GB RAM) or **Qwen 3 14B** (16 GB RAM) from the Model Hub. These deliver strong results for business writing, analysis, and social media content. The smaller 1B models work for quick tests but won't match the quality of larger models.
+> **Which model should I run?** For general local use, **Qwen 3.5 4B / 9B** or **Gemma 4** deliver strong speed and tool calling on 8–16 GB laptops. Lightweight `1B–1.5B` models are great for fast triage and quick tests. Vesper automatically checks your RAM and GPU VRAM in **Models** to recommend the best fit.
 
-![Solo Preview](docs/solo-preview.gif)
+![Vesper Preview](docs/solo-preview.gif)
 
 <details>
-<summary><strong>View all screenshots</strong></summary>
+<summary><strong>View screenshots</strong></summary>
 
 | | |
 |:---:|:---:|
-| ![Dashboard & Chat](docs/screenshots/001-dashboard-chat.png) **Dashboard & Chat** | ![Model Hub](docs/screenshots/002-ModelHub-Selection.png) **Model Hub** |
-| ![Models Installed](docs/screenshots/003-ModelsInstalled.png) **Models Installed** | ![Personas](docs/screenshots/004-Personas.png) **Personas** |
-| ![Create Persona](docs/screenshots/005-CreatePersona.png) **Create Persona** | ![Agent Library](docs/screenshots/006-AgentLibrary.png) **Agent Library** |
-| ![Create Agent](docs/screenshots/007-CreateAgent.png) **Create Agent** | ![Crews](docs/screenshots/008-CrewHome.png) **Crews** |
-| ![Blueprints](docs/screenshots/009-Blueprints.png) **Blueprints** | ![Create Blueprint](docs/screenshots/010-CreateBlueprint.png) **Create Blueprint** |
-| ![Workspace](docs/screenshots/011-Workspace.png) **Workspace** | ![Distributions](docs/screenshots/012-Connections.png) **Distributions** |
-| ![Approvals](docs/screenshots/013-CrewApprovals.png) **Approvals** | ![Settings](docs/screenshots/014-Settings.png) **Settings** |
+| ![Chat](docs/screenshots/001-dashboard-chat.png) **Chat & Workspace** | ![Model Hub](docs/screenshots/002-ModelHub-Selection.png) **Model Hub** |
+| ![Models Installed](docs/screenshots/003-ModelsInstalled.png) **Installed Models** | ![Tools & MCP](docs/screenshots/004-Personas.png) **Tools & MCP** |
+| ![Settings](docs/screenshots/014-Settings.png) **Settings** | ![Knowledge & Agents](docs/screenshots/006-AgentLibrary.png) **Agents (Advanced Mode)** |
 
 </details>
 
 ---
 
-## What can Solo do for you?
+## Core Vesper Features (`v1.2.0`)
 
-### Ask your AI team for help — just like you'd ask a colleague
+### Focused 5-Tab Navigation
+Vesper defaults to a clean, zero-bloat workspace:
+- **Chat** — Streaming chat with file attachments, collapsible reasoning blocks, clickable RAG citations, inline tool-approval prompts, and a built-in **Memory & Recall** drawer.
+- **Local Docs** — Private local knowledge bases for uploaded files and auto-synced folders on disk.
+- **Models** — Hardware-aware GGUF discovery, download, SHA-256 verification, and runtime controls.
+- **Tools & MCP** — Connect Model Context Protocol (MCP) servers, REST APIs, web search, and local file/document tools.
+- **Settings** — AI providers (BYOK), Brand Voice, Appearance, Data & Export, Security & Audit, Developer (`/v1` server & Advanced Mode), and About.
 
-| You need to... | Solo gives you... |
-|----------------|-------------------|
-| Review a contract before signing | A **Legal Counsel** agent that flags risks and suggests revisions |
-| Write a LinkedIn post that sounds like you | A **Content Strategist** who knows your brand voice |
-| Forecast next quarter's revenue | A **Financial Analyst** who structures projections and assumptions |
-| Research a new market before entering | A **Competitive Intelligence Analyst** who maps the landscape |
-| Prepare a board presentation | A **CEO Strategic Advisor** who structures the narrative |
-| Audit your website's SEO | An **SEO Specialist** who identifies gaps and priorities |
-| Draft a job description | An **HR Talent Acquisition** specialist who writes to attract |
-| Plan a product launch | A **crew** of Product Manager + Content Strategist + Social Media Manager working together |
+### Smart Context Bypass & Hybrid RAG (`Local Docs`)
+- **Upload or map whole folders** (PDF, DOCX, TXT, Markdown, HTML, RTF, CSV, JSON) with scheduled auto-sync (`manual` / `1h` / `6h` / `24h`) and large-folder guardrails.
+- **Smart Context Bypass**: Dropped chat files that fit within your active model's context window (`n_ctx`) are injected directly in full instead of lossy chunking.
+- **Hybrid BM25 + Vector Search**: Larger folders use combined lexical BM25 and dense vector search powered by a bundled local embedding model (`all-MiniLM-L6-v2` ONNX) stored in SQLite, returning answers with clickable `[1]`, `[2]` file and page citations.
 
-### Build crews that work together
+### Privacy Shield, Local DLP & Enterprise Governance
+- **Airplane Lock & Privacy Shield**: Live outbound egress ledger and a strict **Airplane Lock** kill-switch that blocks all non-loopback network calls at runtime (`EgressBlockedError`). Can be policy-locked by IT administrators via environment variables or OS policy files.
+- **On-Device Local DLP**: Pre-flight local scanner that automatically redacts sensitive PII and secrets (API keys, emails, SSNs, and custom org regex rules) before prompts leave your machine.
+- **SQLite Audit Log & 1-Click ABOM Export**: Tamper-evident local audit trail paired with 1-click **JSON** and **CSV** exports of your AI Bill of Materials (installed GGUF filenames, sizes, SHA-256 digests, integrity verification status, DLP posture, Airplane Lock state, and audit counts).
+- **Enterprise Model Catalog Override**: Point Vesper to an internal `models.json` over HTTPS, `file://`, or a local filesystem path (works offline under Airplane Lock), optionally enforce **Exclusive Catalog Mode**, and require **SHA-256 verification** on GGUF downloads and loads.
 
-Don't just ask one agent — assemble a team. A crew of 3–5 agents can research, draft, review, and refine a deliverable while you focus on other work.
+### Local OpenAI-Compatible `/v1` Server
+Point **Cursor**, **Continue.dev**, **Cline**, **Aider**, **Zed**, or any OpenAI SDK client at `http://localhost:18741/v1` to power local coding and IDE autocomplete with your downloaded GGUF models or saved provider keys. Manage the server toggle in **Settings → Developer**.
 
-**Example: Quarterly Business Review**
-1. **Financial Analyst** pulls together the numbers and trends
-2. **Data Analyst** creates visualizations and insights
-3. **CEO Strategic Advisor** frames the narrative for stakeholders
-4. **Copywriter** polishes the final document
-
-You define the crew once. Run it whenever you need it.
-
-### Bring your own documents — chat with your PDFs and your folders
-
-Solo's **Knowledge Base** lets you upload PDFs, DOCX, TXT, or Markdown files and chat with them directly. Or **map a whole folder on your PC** (Documents, Notes, a project directory, an Obsidian vault) and Solo auto-indexes it on a schedule — adds new files, updates changed ones, drops removed ones. Documents are chunked, embedded with a bundled local model (all-MiniLM-L6-v2), and stored in your local SQLite database — nothing ever leaves your machine. Pick a knowledge base from the chat input dropdown and the model answers with `[1]`, `[2]` citations pointing back to the source. Crews and workspace agents can also bind to KBs so they cite from your docs on every turn. Works with both local GGUF models and cloud providers.
-
-### Distribute to your channels — and listen for replies
-
-Solo's **Distributions** hub connects to 10 platforms. Crews can publish outbound content on a schedule, or sit in reactive mode and auto-reply to inbound messages — all with optional approval gates so nothing goes live without your sign-off.
-
-| Platform | Receive (Inbound) | Send (Outbound) | Auth |
-|----------|:-----------------:|:---------------:|------|
-| **Telegram Bot** | ✓ | ✓ | Bot token |
-| **Discord Bot** | ✓ | ✓ | Bot token |
-| **Reddit** | ✓ | ✓ | Script app credentials |
-| **LinkedIn** | — | ✓ | OAuth 2.0 |
-| **Twitter / X** | — | ✓ | API key + access tokens |
-| **Instagram** | — | ✓ | OAuth 2.0 (Meta) |
-| **Facebook** | — | ✓ | OAuth 2.0 (Meta) |
-| **Blog** (Ghost / WordPress / custom) | — | ✓ | API key |
-| **Email** (SendGrid / SES / SMTP) | — | ✓ | API key |
-| **Slack Webhook** | — | ✓ | Webhook URL |
-
-**Inbound platforms** (Telegram, Discord, Reddit) poll for new messages and route them to the right crew based on keywords, hashtags, or mentions. The crew generates a reply and either sends it instantly or holds it in the **Approvals** queue for your review before posting.
+### Opt-In Advanced Mode & Full Solo Unlock
+Need multi-agent orchestration?
+- Enable **Advanced Mode** in **Settings → Developer** to reveal **Agents**, **Workspace (Crews)**, **Automations**, **Memory**, and **Approvals** in the sidebar.
+- Use **Unlock Full ContextuAI Solo** in **Settings → About** whenever you want the 96-agent business library, 10 workflow blueprints, and the **Coder** project mode (`Cmd/Ctrl+Shift+M`) enabled in-place with zero reinstallation.
 
 ---
 
-## Who is Solo for?
+## Hardware & Local Model Fit
 
-Solo is built for people who run a business with a small team — or no team at all:
+Vesper detects your system RAM and GPU automatically (Apple Metal, NVIDIA CUDA, or Vulkan) and falls back cleanly to CPU:
 
-- **Freelancers and consultants** who handle client strategy, proposals, and deliverables alone
-- **Solo founders** building a company and wearing every hat — marketing, finance, legal, product
-- **Small agency owners** who need to scale output without scaling headcount
-- **Professionals with sensitive data** — client financials, legal documents, HR records — who can't risk sending it to the cloud
-
----
-
-## Your data never leaves your machine
-
-Solo runs 100% on your desktop. No accounts. No cloud sync. No telemetry.
-
-- **AI models run locally** — on your GPU when available (Apple Metal / NVIDIA CUDA / Vulkan), CPU otherwise — download once, use forever, no internet required
-- **All data stored locally** in SQLite — conversations, agents, crews, everything
-- **No sign-up, no login** — you're the admin, always
-- **Bring Your Own Key** — optionally connect Anthropic, OpenAI, Google, or AWS Bedrock when you need cloud-scale power
-
-Your client proposals, financial models, legal reviews, and business strategies stay on your laptop. Period.
-
----
-
-## 96 Business Agents, Ready to Work
-
-Solo ships with specialized agents across every business function:
-
-| Department | Your AI team members |
-|------------|---------------------|
-| **C-Suite** | CEO Strategic Advisor, CFO Financial Strategist, CTO Technology Advisor, CMO, COO, CHRO, and 6 more |
-| **Marketing & Sales** | Content Strategist, Copywriter, SEO Specialist, Social Media Manager, Sales Engineer, and 6 more |
-| **Finance & Operations** | Financial Analyst, Pricing Strategist, Controller, Supply Chain Analyst, Risk Manager, and more |
-| **Legal & Compliance** | General Counsel, Privacy Officer, Contract Specialist, IP Strategist, Compliance Officer |
-| **HR & People** | Talent Acquisition, People Operations, Compensation Analyst, L&D Specialist, Org Development |
-| **Data & Analytics** | Data Analyst, Data Scientist, BI Analyst, Analytics Engineer, Data Governance Specialist |
-| **Design & UX** | UI Designer, UX Researcher, Brand Designer, Motion Designer, Design System Architect |
-| **Product Management** | Product Manager, Agile Coach, Technical Writer, Scrum Master, Business Analyst |
-| **IT & Security** | SOC Analyst, Penetration Tester, IAM Specialist, Network Architect, IT Support Lead |
-| **Startup & Venture** | Fundraising Advisor, Growth Hacker, Pitch Deck Architect, MVP Architect, and 6 more |
-| **Social Engagement** | Social Media Responder, Brand Voice Guardian, Sentiment Analyzer, Lead Qualifier, and 8 more |
-| **Specialized** | Solutions Architect, Developer Advocate, AI Ethics Advisor, Sustainability Officer, and 5 more |
-
-Every agent comes with a detailed system prompt, recommended tools, and domain expertise. Use them as-is or customize them for your business.
-
----
-
-## 41 Local AI Models — One Click, No Subscriptions
-
-Download a model. Click run. That's it. No API keys. No internet. No monthly bills.
-
-Solo auto-detects your hardware and recommends the right model:
-
-| Your RAM | What you can run |
-|----------|-----------------|
+| Your RAM | Example Local Models |
+|----------|----------------------|
 | 4 GB | Qwen 3.5 0.8B, Gemma 3 1B, Llama 3.2 1B |
-| 8 GB | Qwen 3 8B, DeepSeek R1 7B, Mistral 7B, Qwen 2.5 Coder 7B |
-| 16 GB | Qwen 3 14B, Phi-4 14B, DeepSeek R1 14B, Qwen 2.5 Coder 14B |
-| 32 GB | Qwen 3 32B, DeepSeek R1 32B, Gemma 3 27B, Qwen 2.5 Coder 32B |
-| 48+ GB | Llama 3.1 70B, DeepSeek R1 70B |
+| 8 GB | Qwen 3.5 4B, Qwen 3 8B, DeepSeek R1 7B, Mistral 7B, Qwen 2.5 Coder 7B |
+| 16 GB | Qwen 3.5 9B, Qwen 3 14B, Phi-4 14B, DeepSeek R1 14B, Qwen 2.5 Coder 14B |
+| 32 GB+ | Qwen 3.5 35B-A3B, Qwen 3 32B, DeepSeek R1 32B, Gemma 3 27B |
 
-9 model families: **Qwen 3.5** / **Qwen 3** / **Qwen 2.5** / **DeepSeek R1** / **Gemma 3** / **Gemma 4** / **Llama 3** / **Mistral** / **Phi-4** — covering general chat, reasoning, coding, creative writing, multilingual, and vision.
-
-### Built-in Coding Server
-
-Solo exposes an **OpenAI-compatible API endpoint** (`/v1/chat/completions`) on your localhost. Point VS Code, Cursor, or any OpenAI-compatible IDE at it and use Qwen 2.5 Coder or DeepSeek R1 as your local coding assistant — completely offline, completely free.
-
----
-
-## Everything else you get
-
-- **Multi-Agent Crews** — Assemble teams via a 7-step wizard with 4 execution modes: sequential, parallel, pipeline, or fully autonomous
-- **Automations** — Natural-language `@agent`-mention workflows for one-off work. Write a prompt, pick output actions (PDF, PPTX, Markdown, or any Distribution channel), run. Promote any Automation into a scheduled Crew with one click
-- **Coder Mode** — Switch to a local coding workspace from the top-center mode pill (`Cmd/Ctrl+Shift+M`). Scaffold from 4 starter templates (Web App, Telegram Bot, CLI Tool, Static Site), run your dev server in a sandboxed shell, preview in an embedded iframe, and pair with 5 coder-companion agents (code-reviewer, bug-analyzer, test-writer, doc-generator, refactor-advisor). Multi-agent workflow modes: solo, sequential, parallel, custom
-- **Agents-by-Kind library** — The agent picker is tabbed by kind (Prompt · Database · Web · MCP · API · File), so a Postgres connector and a system-prompt agent live as peers but render as categorically different things. Personas folded in here in v1.0.0-11
-- **10 Blueprint Templates** — Pre-built workflow templates across strategy, content, marketing, product, and research
-- **10 Distribution Channels** — Telegram, Discord, Reddit, LinkedIn, Twitter/X, Instagram, Facebook, Blog, Email, and Slack — with inbound auto-reply and approval gates. See the [Distributions Guide](CONNECTIONS-GUIDE.md) for setup
-- **Knowledge Base (Local RAG)** — Upload PDFs / DOCX / TXT / MD or map a whole folder on disk, chunk + embed locally with a bundled MiniLM model, and chat with citations. Folder mappings auto-sync on a `1h` / `6h` / `24h` schedule with friction guardrails for large directories. Crews and workspace agents can bind to specific KBs. Pre-built starter packs live under `knowledge-base-packs/`
-- **Memory (Local)** — A user-visible memory store at `/memory`. Add facts by hand, search them semantically with the same bundled MiniLM embeddings, pin the important ones, and export everything. Per-surface toggles (chat and crews on, channels off by default) and a master kill-switch, all stored locally. Automatic recall into chats and crews is on the roadmap — today facts are added and managed manually
-- **Cross-mode handoffs** — Crews can include a Coder run as a step. Automations can route output to a Coder project. Coder projects can be indexed as a KB. Coder errors deep-link into Solo chat with `@bug-analyzer`
-- **AI Providers onboarding** — Settings → AI Providers shows Distributions-style cards for Anthropic, OpenAI, Google Gemini, AWS Bedrock, Ollama, and any OpenAI-compatible endpoint (vLLM / LM Studio / llama.cpp server / TGI / LiteLLM / OpenRouter — base URL required, key optional). Paste a key, test the connection, and every saved provider's models appear in the OpenAI-compatible `/v1/models` list. Anthropic, OpenAI, Google Gemini, and Ollama models are discovered live — from each account, or from the local Ollama server for models you've pulled — so the list never rots
-- **Brand Voice** — Define your business identity so every response sounds like you
-- **Dark/Light Theme** — Easy on the eyes, day or night
+Set `LOCAL_MODEL_GPU_LAYERS=0` to force CPU execution, or connect **Anthropic Claude**, **OpenAI**, **Google Gemini**, **AWS Bedrock**, **Ollama**, or any **OpenAI-Compatible** `/v1` endpoint in **Settings → AI Providers**.
 
 ---
 
 ## System Requirements
 
-Solo is a native desktop app that runs ~500 MB installed. If you bring your own API key for a cloud provider, that's all you need. If you want to run local GGUF models, the model itself drives most of the hardware requirements.
+Vesper is a native Tauri v2 desktop app (~500 MB installed). Running cloud providers via BYOK requires minimal resources; running local GGUF models depends on the model size you choose.
 
 ### Supported Platforms
 
 | OS | Versions | Installer |
 |----|----------|-----------|
-| **Windows** | Windows 10 (1809+) or Windows 11, 64-bit | `.exe` or `.msi` (x64) |
+| **Windows** | Windows 10 (1809+) or Windows 11, 64-bit | `.exe` (NSIS) or `.msi` (`x64`) |
 | **macOS** | macOS 12 Monterey or later | `.dmg` — **Apple Silicon only** (M1/M2/M3/M4) |
-| **Linux** | Ubuntu 22.04+, Fedora 38+, or equivalent glibc distro | `.deb` or `.rpm` (x86_64) |
-
-> Intel Macs aren't supported in the current build. AppImage for Linux is coming in a future release.
-
-### Hardware
-
-| | Minimum (cloud providers only, BYOK) | Recommended (running local models) |
-|-|--------------------------------------|-----------------------------------|
-| **CPU** | Any 64-bit CPU, dual-core, 2 GHz+ | 4+ cores with AVX2 (standard on any CPU from 2013+) |
-| **RAM** | 4 GB | 8–32 GB depending on model — see the table in the Local Models section below |
-| **Disk** | ~500 MB for the app | +1–40 GB per downloaded model (keep several; swap between them) |
-| **Network** | Required for cloud provider calls | One-time model download from HuggingFace; fully offline after |
-| **GPU** | Not used | Used automatically when available — Apple Metal (Apple Silicon), NVIDIA CUDA, or Vulkan; falls back to CPU |
-
-**On local inference speed:** llama-cpp-python offloads to your GPU automatically when the installed build supports it (Apple Metal, NVIDIA CUDA, Vulkan) — several times faster than CPU on the same model — and falls back to CPU otherwise. On CPU, expect roughly 5–20 tokens/sec on 7–14B models and 1–3 tokens/sec on 70B models; on Apple Silicon or a discrete GPU, substantially more. Set `LOCAL_MODEL_GPU_LAYERS=0` to force CPU, or route 70B output to a cloud provider via BYOK.
+| **Linux** | Ubuntu 22.04+, Fedora 38+, or equivalent glibc distro | `.deb`, `.rpm`, or `.AppImage` (`x86_64`) |
 
 ---
 
 ## Download & Install
 
-**[Download the latest release](https://github.com/contextuai/contextuai-solo/releases/latest)** — pre-built installers for all platforms, no build steps needed.
+**[Download the latest release](https://github.com/contextuai/vesper/releases/latest)** — pre-built installers for all platforms, no build steps needed.
 
 | Platform | Installer | How to Install |
 |----------|-----------|----------------|
-| **Windows** | `.exe` or `.msi` | Run the installer. If SmartScreen warns "Windows protected your PC", click **"More info"** → **"Run anyway"** |
-| **macOS** | `.dmg` | Open the DMG, drag to Applications. Then run the command below in Terminal to clear Gatekeeper's quarantine flag, and launch the app normally |
-| **Linux** | `.deb` / `.rpm` | `sudo dpkg -i contextuai-solo_*.deb` or `sudo rpm -i contextuai-solo-*.rpm` |
+| **Windows** | `Vesper_*_x64-setup.exe` / `.msi` | Run the installer. If SmartScreen warns "Windows protected your PC", click **"More info"** → **"Run anyway"** |
+| **macOS** | `Vesper_*.dmg` | Open the DMG, drag **Vesper.app** to Applications, then clear Gatekeeper's quarantine flag once in Terminal |
+| **Linux** | `.deb` / `.rpm` / `.AppImage` | Install with `dpkg -i`, `rpm -i`, or `chmod +x` for AppImage |
 
 **macOS Gatekeeper fix** — After dragging the app to Applications, run this once in Terminal:
 
 ```bash
-xattr -cr "/Applications/ContextuAI Solo.app"
+xattr -cr "/Applications/Vesper.app"
 ```
 
-Without this, macOS may silently refuse to launch the app (or show "app is damaged and can't be opened") because the `.dmg` isn't Apple-notarized yet. The command strips the quarantine attribute so the app opens normally on every launch afterward.
+### Feedback & Issues
 
-> **Note:** Windows SmartScreen and macOS Gatekeeper warnings are normal for new open-source software that isn't yet EV code-signed. You only need to bypass them once.
-
-### First Run
-
-1. The app launches a **Setup Wizard** that walks you through configuration
-2. Download a free local model or enter an API key for a cloud provider. The wizard tells you whether you're ready to chat, and if you skip this step it says so plainly and offers to download a model instead
-3. Start chatting, building agents, or assembling crews — if no model is set up yet, Chat shows a nudge with shortcuts to the Model Hub and AI Providers
-
-### Beta Testers Welcome
-
-This is an active beta — we'd love your feedback! If you run into any issues:
-
-1. Check which version you're running (Settings page or the release you downloaded)
-2. [Open a GitHub Issue](https://github.com/contextuai/contextuai-solo/issues/new) with the version number, your OS, and steps to reproduce
-3. Feature requests are welcome too — tell us what agents or integrations you'd like to see
-
----
-
-## Solo vs Enterprise
-
-| Feature | Solo (Free) | Enterprise |
-|---------|:-----------:|:----------:|
-| AI Chat with Streaming | Yes | Yes |
-| 96 Business Agents | Yes | Yes |
-| 10 Persona Types | Yes | Yes |
-| Multi-Agent Crews | Yes | Yes |
-| Workshop (Brainstorming) | Yes | Yes |
-| BYOK (Bring Your Own Key) | Yes | Yes |
-| Local AI Models (GGUF) | Yes | Yes |
-| Dark/Light Theme | Yes | Yes |
-| 10 Distribution Channels | Yes | Yes |
-| Knowledge Base / Local RAG | Yes | Yes |
-| Memory (Local Store) | Yes | Yes |
-| SQLite (Local Storage) | Yes | -- |
-| MongoDB + Cloud Infra | -- | Yes |
-| Multi-User / Teams | -- | Yes |
-| Role-Based Access Control | -- | Yes |
-| SSO / MFA / SCIM 2.0 | -- | Yes |
-| Analytics Dashboard | -- | Yes |
-| Automations & Scheduling | Yes | Yes |
-| Coder Mode (local code workspace) | Yes | -- |
-| CodeMorph (Code Gen) | -- | Yes |
-| Control Center (23 integrations) | -- | Yes |
-| Enterprise DB Connectors | -- | Yes |
-| Audit Logs & Compliance | -- | Yes |
-| Dedicated Support | -- | Yes |
-
-> **Solo** is free forever — [contextuai.com/solo](https://contextuai.com/solo). Interested in enterprise features? Visit [contextuai.com](https://contextuai.com) or email hello@contextuai.com.
+1. Check your version under **Settings → About**.
+2. [Open a GitHub Issue](https://github.com/contextuai/vesper/issues/new) with your OS, version, and steps to reproduce.
 
 ---
 
@@ -287,20 +131,19 @@ This is an active beta — we'd love your feedback! If you run into any issues:
 +-------------------+     +-------------------------+     +--------------------+
 |                   |     |                         |     |                    |
 |   Tauri v2 Shell  |     |   FastAPI Backend       |     |   AI Providers     |
-|   (Rust)          |     |   (Python 3.11+)        |     |   (BYOK)           |
+|   (Rust)          |     |   (Python 3.11+)        |     |   (Local / BYOK)   |
 |                   |     |                         |     |                    |
-|  +-------------+  |     |  +-------------------+  |     |  - Anthropic       |
-|  | Vite + React|  | --> |  | SQLite Database   |  | --> |  - OpenAI          |
-|  | SPA (1420)  |  | API |  | (via async adapter)|  |     |  - Google Gemini   |
-|  +-------------+  |     |  +-------------------+  |     |  - AWS Bedrock     |
-|                   |     |  Port 18741             |     |  - Local GGUF      |
+|  +-------------+  |     |  +-------------------+  |     |  - Local GGUF      |
+|  | Vite + React|  | --> |  | SQLite Database   |  | --> |  - Ollama / v1     |
+|  | SPA (1420)  |  | API |  | (via async adapter)|  |     |  - Anthropic       |
+|  +-------------+  |     |  +-------------------+  |     |  - OpenAI / Gemini |
+|                   |     |  Port 18741             |     |  - AWS Bedrock     |
 +-------------------+     +-------------------------+     +--------------------+
 ```
 
-- **Frontend**: React 19 SPA served by Vite dev server (port 1420) or bundled into the Tauri desktop shell
-- **Backend**: FastAPI with SQLite via an async adapter layer that mirrors the enterprise Motor/MongoDB interface
-- **AI Routing**: BYOK keys configured in the Setup Wizard; the backend routes requests to the selected provider
-- **Data**: Everything stored locally in SQLite + localStorage. No telemetry. No cloud calls (except to your chosen AI provider).
+- **Frontend**: React 19 SPA served by Vite dev server (port `1420`) or bundled into the Tauri desktop shell
+- **Backend**: FastAPI on `127.0.0.1:18741` with SQLite via an async adapter layer
+- **Data Storage**: Local user state stays under `~/.contextuai-solo/` (`~/.contextuai-solo/data/contextuai.db` and `~/.contextuai-solo/models/`)
 
 </details>
 
@@ -308,43 +151,25 @@ This is an active beta — we'd love your feedback! If you run into any issues:
 <summary><strong>Project Structure</strong></summary>
 
 ```
-contextuai-solo/
+vesper/
 ├── frontend/           # Tauri v2 + React 19 + Vite desktop app
-│   ├── src/            # React components, routes, and lib
+│   ├── src/            # React components, routes, hooks, and API clients
 │   ├── src-tauri/      # Tauri Rust shell configuration
-│   └── package.json
+│   └── tests/e2e/      # Playwright E2E test suite
 ├── backend/            # FastAPI server (Python 3.11+, SQLite)
 │   ├── app.py          # Application entry point
 │   ├── adapters/       # Database, auth, storage, scheduler adapters
-│   ├── routers/        # API route handlers
-│   ├── services/       # Business logic and AI orchestration
-│   └── requirements.txt
-├── agent-library/      # Built-in agent templates (113 agents across 14 categories; engineering + coder-companion excluded from Solo → 96 visible in Solo, 5 coder-companion agents surface in Coder mode)
-├── coder-templates/    # Starter projects scaffolded by Coder mode (web-app, telegram-bot, cli-tool, static-site)
-├── blueprints/         # 10 pre-built crew workflow templates
+│   ├── routers/        # API route handlers (chat, rag, dlp, audit, enterprise, v1)
+│   ├── services/       # Business logic, inference, RAG, DLP, audit & policy
+│   └── tests/          # Pytest unit and integration test suite
+├── agent-library/      # Built-in agent templates (unlocked in Full Solo / Advanced Mode)
+├── blueprints/         # 10 pre-built workflow templates
+├── coder-templates/    # Starter projects for Coder mode
 ├── docs/user-guide/    # Per-module user guides
-├── run.sh              # One-command backend launcher (Linux/macOS)
-├── run-tests.ps1       # One-click test runner (backend + frontend)
-├── docker-compose.yml  # Docker-based development setup
+├── run.sh              # Convenience backend launcher (Linux/macOS)
+├── run-tests.ps1       # Test runner (backend + frontend)
 └── LICENSE             # Apache 2.0 with Commons Clause
 ```
-
-</details>
-
-<details>
-<summary><strong>Tech Stack</strong></summary>
-
-| Layer | Technology |
-|-------|-----------|
-| **Desktop Shell** | [Tauri v2](https://tauri.app/) (Rust) — lightweight, secure, cross-platform |
-| **Frontend** | [React 19](https://react.dev/) + [Vite](https://vitejs.dev/) + [TypeScript 5.9](https://typescriptlang.org/) |
-| **Styling** | [Tailwind CSS](https://tailwindcss.com/) + [Framer Motion](https://motion.dev/) |
-| **Icons** | [Lucide Icons](https://lucide.dev/) |
-| **Backend** | [FastAPI](https://fastapi.tiangolo.com/) (Python 3.11+) |
-| **Database** | [SQLite](https://sqlite.org/) via async adapter |
-| **AI Providers** | Anthropic Claude, OpenAI GPT, Google Gemini, AWS Bedrock, Ollama, any OpenAI-compatible endpoint (all surfaced via a unified `/v1/*` dispatcher) |
-| **Local AI** | 41 GGUF models via llama-cpp-python (Gemma 4, Qwen 3.5, Qwen 3, DeepSeek R1, Llama 3, Mistral, Phi-4) — 0.5B to 70B |
-| **Agent Framework** | [Strands Agents SDK](https://github.com/strands-agents/sdk-python) |
 
 </details>
 
@@ -353,68 +178,47 @@ contextuai-solo/
 
 ### Prerequisites
 
-- **Node.js 18+** — [Download](https://nodejs.org/)
-- **Python 3.11+** — [Download](https://python.org/)
-- **Rust** (for Tauri desktop builds only) — [Install](https://rustup.rs/)
+- **Node.js 20+**
+- **Python 3.11+**
+- **Rust** (for Tauri desktop builds only)
 
 ### Installation
 
 ```bash
-# Clone the repo
-git clone https://github.com/contextuai/solo.git
-cd solo
+git clone https://github.com/contextuai/vesper.git
+cd vesper
 
-# Install frontend dependencies
 cd frontend && npm install
-
-# Install backend dependencies
 cd ../backend && pip install -r requirements.txt
 ```
 
-### Running the App
+### Running in Dev Mode
 
-**Option A — Use the convenience script:**
-
-```bash
-./run.sh
-```
-
-This creates a virtual environment, installs dependencies, and starts the backend.
-
-**Option B — Manual start:**
-
-**Terminal 1 — Start the backend:**
+**Terminal 1 — Backend:**
 
 ```bash
 cd backend
-CONTEXTUAI_MODE=desktop uvicorn app:app --host 127.0.0.1 --port 18741 --reload
+CONTEXTUAI_MODE=desktop python __main__.py --host 127.0.0.1 --port 18741
 ```
 
-**Terminal 2 — Start the frontend:**
+**Terminal 2 — Frontend:**
 
 ```bash
 cd frontend
 npm run dev
 ```
 
-Open **http://localhost:1420** and you're ready to go.
+Open **http://localhost:1420**.
 
-**Option C — Docker:**
-
-```bash
-docker compose up
-```
-
-This starts the backend on port 18741. Run the frontend separately with `cd frontend && npm run dev`.
-
-### Building the Desktop App
+### Building Desktop Installers
 
 ```bash
-cd frontend
-npm run tauri build
-```
+# On Windows, build the frozen PyInstaller sidecar + NSIS/MSI installers:
+./build.ps1
 
-The built app will be in `frontend/src-tauri/target/release/`.
+# Or directly via Tauri (once sidecar is built):
+cd frontend && npm run tauri build
+```
 
 </details>
 
@@ -422,50 +226,33 @@ The built app will be in `frontend/src-tauri/target/release/`.
 <summary><strong>Testing</strong></summary>
 
 ```powershell
-.\run-tests.ps1                              # Run all tests (auto-starts servers)
-.\run-tests.ps1 -Backend                     # Backend pytest only (607+ tests)
-.\run-tests.ps1 -Frontend                    # Frontend Playwright E2E only (184 tests)
-.\run-tests.ps1 -Backend -Filter "sqlite"    # Filter by test name
-.\run-tests.ps1 -Frontend -Filter "chat"     # Filter Playwright tests
-```
+# Backend tests (from backend/)
+$env:CONTEXTUAI_MODE = "desktop"
+pytest tests/ -v
 
-The test runner automatically starts/stops the backend and frontend dev servers as needed.
+# Frontend type check, build & Playwright E2E (from frontend/)
+npx tsc --noEmit
+npm run build
+npx playwright test
+```
 
 </details>
 
 ### Contributing
 
-We welcome contributions! Whether it's bug fixes, new agents, UI improvements, or documentation — every contribution helps.
-
-Please read our [Contributing Guide](CONTRIBUTING.md) before submitting a pull request.
-
-1. Fork the repository
-2. Create a feature branch (`git checkout -b feature/amazing-feature`)
-3. Make your changes
-4. Run tests: `.\run-tests.ps1`
-5. Commit with clear messages (`git commit -m "feat: add amazing feature"`)
-6. Push and open a Pull Request
-
----
-
-## Community
-
-- **GitHub Issues** — Bug reports and feature requests
-- **GitHub Discussions** — Questions, ideas, and general chat
-- **Twitter/X** — Follow [@contextuai](https://twitter.com/contextuai) for updates
+Please read our [Contributing Guide](CONTRIBUTING.md) before opening a pull request.
 
 ---
 
 ## License
 
-ContextuAI Solo is released under the [Apache License 2.0 with Commons Clause](LICENSE).
+Vesper is released under the [Apache License 2.0 with Commons Clause](LICENSE).
 
-You are free to use, modify, and contribute to this software for personal, internal business, educational, and integration purposes. You may **not** sell the software or use it to create a competing commercial product. See the [LICENSE](LICENSE) file for full details.
+See the [LICENSE](LICENSE) file for full details.
 
 ---
 
 <p align="center">
-  <strong>Built with love by ContextuAI</strong><br>
-  <em>You're one person. Now you have a team.</em><br><br>
-  Star us on GitHub if you find this useful!
+  <strong>Built with care by ContextuAI</strong><br>
+  <em>Quiet, sovereign intelligence on your metal.</em>
 </p>

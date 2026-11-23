@@ -1,5 +1,7 @@
 # Blueprints
 
+> **Vesper v1.2.0 Note:** Blueprints are used when **Advanced Mode** or Full Solo agent seeding is enabled.
+
 Blueprints are workflow templates that give your crews and workspace projects a head start. Instead of writing descriptions and instructions from scratch, pick a blueprint and customize it for your needs.
 
 ![Blueprints](../screenshots/009-Blueprints.png)
@@ -8,13 +10,13 @@ Blueprints are workflow templates that give your crews and workspace projects a 
 
 ## Getting Started
 
-1. Navigate to **Blueprints** from the sidebar.
+1. Navigate to `/blueprints` (or pick **Use Blueprint** inside the Crew builder when **Advanced Mode** is enabled).
 2. Browse the library of pre-built templates.
 3. Use blueprints when creating Crews (Step 1) or Workspace projects.
 
 ## Pre-Built Blueprints
 
-ContextuAI Solo ships with 10 blueprints across 5 categories:
+Vesper includes 10 blueprints across 5 categories once Full Solo templates are seeded:
 
 | Category | What it covers |
 |----------|---------------|
