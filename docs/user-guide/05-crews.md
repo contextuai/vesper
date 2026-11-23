@@ -1,6 +1,8 @@
-# Crews
+# Crews (Workspace)
 
-Crews are multi-agent teams that work together to accomplish complex tasks. You define the agents, choose how they collaborate, and optionally connect them to social platforms for automated posting.
+> **Vesper v1.2.0 Note:** Crews (**Workspace**, `/crews`) are hidden in default Vesper navigation and can be enabled via **Settings → Developer → Advanced Mode** (or **Settings → About → Unlock Full ContextuAI Solo**). Social publishing channels (`LinkedIn`, `Twitter/X`, `Instagram`, `Facebook`) were retired in Vesper v1.2.0.
+
+Crews are multi-agent teams that work together to accomplish complex tasks. You define the agents, choose how they collaborate, and run them locally against your chosen models.
 
 ![Crews](../screenshots/008-CrewHome.png)
 
@@ -8,15 +10,12 @@ Crews are multi-agent teams that work together to accomplish complex tasks. You 
 
 ## Getting Started
 
-1. Navigate to **Crews** from the sidebar.
-2. Click **Create Crew** to open the 5-step wizard.
-3. Configure your crew's details, execution mode, agents, and connections.
+1. Enable **Advanced Mode** in **Settings → Developer**, then open **Workspace** (`/crews`) from the sidebar.
+2. Click **Create Crew** to open the wizard.
+3. Configure your crew's details, execution mode, and agents.
 4. Run the crew and monitor its progress in real-time.
 
-> **New here?** Solo ships with a couple of ready-to-run **sample crews**
-> (tagged `sample`) — e.g. *LinkedIn Content Pipeline* — that demonstrate the
-> recommended **writer → reviewer → finalizer** pattern. Open one, click
-> **Run Crew**, enter a task, and inspect how each step feeds the next.
+> **New here?** Vesper ships with sample crews you can inspect and test once Full Solo agent seeding is enabled.
 
 ## Crew List
 

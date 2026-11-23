@@ -1,7 +1,6 @@
 # Manual Setup & Testing Guide
 
-> Steps you need to do personally to test the full auto-reply flow.
-> Everything code-side is built — you just need to connect a real Telegram bot.
+> **Note (Vesper v1.2.0):** The legacy `/connections` (**Distributions**) page was retired in Vesper v1.2.0 and redirects to `/settings`. Enable **Advanced Mode** under **Settings → Developer** to access `/approvals` and `/crews` in the sidebar, and use Option B (API) below for trigger configuration.
 
 ---
 
@@ -13,9 +12,9 @@
 | **OpenAI-compat API** | Done | `/v1/chat/completions` — works with Aider, Continue.dev, etc. |
 | **Channel AI dispatch** | Done | Inbound messages → AI response (uses default local model) |
 | **Trigger system** | Done | Link channels to crews/agents, with cooldown |
-| **Trigger config UI** | Done | Auto-reply toggle per channel in Distributions page |
+| **Trigger config UI** | Retired | Legacy Distributions page was retired in Vesper v1.2.0; configure triggers via Option B API below |
 | **Approval queue** | Done | Human-in-the-loop review before sending replies |
-| **Approvals page** | Done | Full review/edit/approve/reject UI at `/approvals` |
+| **Approvals page** | Done | Full review/edit/approve/reject UI at `/approvals` (enable **Advanced Mode** in Settings → Developer) |
 
 ---
 
@@ -23,8 +22,8 @@
 
 1. Open Telegram and search for **@BotFather**
 2. Send `/newbot`
-3. Choose a name (e.g., "My Solo Assistant")
-4. Choose a username (e.g., `my_solo_assistant_bot`)
+3. Choose a name (e.g., `"My Vesper Assistant"`)
+4. Choose a username (e.g., `my_vesper_assistant_bot`)
 5. BotFather gives you a **bot token** like: `7123456789:AAHxxx...`
 6. **Copy this token** — you'll need it in Step 3
 

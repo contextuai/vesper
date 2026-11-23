@@ -1,11 +1,11 @@
 # Knowledge Base Packs
 
-Starter packs of curated documents that ContextuAI Solo users can download
-and import into their local Knowledge Bases.
+Starter packs of curated documents that Vesper users can download
+and import into their local Knowledge Bases (`Local Docs`).
 
 ## Why
 
-Every Solo user starts with an empty `/knowledge` page. The first 30 minutes
+Every Vesper user starts with an empty `/knowledge` page. The first 30 minutes
 matter: a blank state kills momentum. These packs give people something to
 play with the moment they install the app.
 

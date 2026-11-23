@@ -1,6 +1,6 @@
-# Using ContextuAI Solo from VS Code (and other IDEs)
+# Using Vesper from VS Code (and other IDEs)
 
-ContextuAI Solo exposes an **OpenAI-compatible HTTP API** on `http://localhost:18741`. Any tool that speaks the OpenAI Chat Completions or legacy Completions protocol can use Solo as its model backend — no internet, no API costs, your code never leaves your machine.
+**Vesper** exposes an **OpenAI-compatible HTTP API** on `http://localhost:18741`. Any tool that speaks the OpenAI Chat Completions or legacy Completions protocol can use Vesper as its model backend — no internet, no API costs, and your code stays on your machine.
 
 Tested with: **Continue.dev**, **Cline / Roo Code**, **Cursor**, **Aider**, **Tabby**, **Cody**, **Zed**, and any OpenAI SDK client.
 
@@ -8,18 +8,19 @@ Tested with: **Continue.dev**, **Cline / Roo Code**, **Cursor**, **Aider**, **Ta
 
 | Endpoint | Purpose |
 |---|---|
-| `GET  /v1/models` | List the models Solo can run |
+| `GET  /v1/models` | List the models Vesper can run |
 | `POST /v1/chat/completions` | Chat messages → reply (streaming or not) |
 | `POST /v1/completions` | Text completion with Fill-in-the-Middle (FIM) for inline autocomplete |
 
-- **No auth.** Solo binds to `127.0.0.1` only, so the endpoint is reachable from your machine but not from the network.
+- **No auth.** Vesper binds to `127.0.0.1` only, so the endpoint is reachable from your machine but not from the network.
+- **Toggleable.** Enable or disable the local `/v1` server under **Settings → Developer**.
 - **Streaming works.** Pass `"stream": true` and you'll get standard SSE `data: {...}` chunks.
-- **Local models out of the box.** Anything you downloaded from the Model Hub is selectable by its model ID.
+- **Local models out of the box.** Anything you downloaded from **Models** is selectable by its model ID.
 
 ## Before you start
 
-1. Make sure Solo is **running** (the desktop app must be open, or the backend started via `./run.sh`).
-2. In the app, open **Model Hub** and download at least one local model — `qwen2.5-coder-7b` or `qwen2.5-7b` are great starting points for coding tasks.
+1. Make sure **Vesper** is running (open the desktop app, or start the backend via `./run.sh`) and that **Local OpenAI `/v1` Server** is enabled in **Settings → Developer**.
+2. In the app, open **Models** and download at least one local GGUF model — `qwen2.5-coder-7b` or `qwen3.5-4b` are great starting points for coding tasks.
 3. Confirm the endpoint is up:
 
    ```bash
@@ -30,16 +31,16 @@ Tested with: **Continue.dev**, **Cline / Roo Code**, **Cursor**, **Aider**, **Ta
 
 ## VS Code — Continue.dev
 
-[Continue](https://continue.dev) is the most popular OSS coding assistant for VS Code and JetBrains IDEs.
+[Continue](https://continue.dev) is a popular open-source coding assistant for VS Code and JetBrains IDEs.
 
 1. Install the **Continue** extension.
-2. Open `~/.continue/config.json` (Continue creates it on first run) and add Solo as a custom provider:
+2. Open `~/.continue/config.json` (Continue creates it on first run) and add Vesper as a custom provider:
 
    ```json
    {
      "models": [
        {
-         "title": "Solo — Qwen Coder",
+         "title": "Vesper — Qwen Coder",
          "provider": "openai",
          "model": "qwen2.5-coder-7b",
          "apiBase": "http://localhost:18741/v1",
@@ -47,7 +48,7 @@ Tested with: **Continue.dev**, **Cline / Roo Code**, **Cursor**, **Aider**, **Ta
        }
      ],
      "tabAutocompleteModel": {
-       "title": "Solo — FIM",
+       "title": "Vesper — FIM",
        "provider": "openai",
        "model": "qwen2.5-coder-7b",
        "apiBase": "http://localhost:18741/v1",
@@ -56,7 +57,7 @@ Tested with: **Continue.dev**, **Cline / Roo Code**, **Cursor**, **Aider**, **Ta
    }
    ```
 
-3. Reload the Continue panel. Pick **Solo — Qwen Coder** from the model dropdown.
+3. Reload the Continue panel and pick **Vesper — Qwen Coder** from the model dropdown.
 4. Inline autocompletion (the `tabAutocompleteModel`) uses `/v1/completions` with FIM — works out of the box.
 
 ## VS Code — Cline / Roo Code
@@ -69,7 +70,7 @@ Tested with: **Continue.dev**, **Cline / Roo Code**, **Cursor**, **Aider**, **Ta
    - **Base URL:** `http://localhost:18741/v1`
    - **API Key:** anything (e.g. `local`) — required by the form but ignored
    - **Model ID:** `qwen2.5-coder-7b` (or whichever model you downloaded)
-4. Save. Start a new task and Cline will route every call through Solo.
+4. Save. Start a new task and Cline routes every call through Vesper.
 
 ## Cursor
 
@@ -77,9 +78,9 @@ Cursor accepts custom OpenAI-compatible endpoints.
 
 1. **Settings → Models → Override OpenAI Base URL** → `http://localhost:18741/v1`
 2. **OpenAI API Key** → anything non-empty.
-3. **Models → Add a custom model** → enter your Solo model ID (e.g. `qwen2.5-coder-7b`) and enable it.
+3. **Models → Add a custom model** → enter your Vesper model ID (e.g. `qwen2.5-coder-7b`) and enable it.
 
-Note: Cursor's "smart" features (Cursor Tab, Composer) still call Cursor's own cloud unless you've explicitly switched them off. The chat sidebar will use Solo.
+Note: Cursor's own hosted tab-autocomplete calls Cursor's cloud unless turned off; the chat panel uses Vesper directly.
 
 ## Aider
 
@@ -134,7 +135,7 @@ from openai import OpenAI
 
 client = OpenAI(
     base_url="http://localhost:18741/v1",
-    api_key="not-needed",  # required by the SDK, ignored by Solo
+    api_key="not-needed",  # required by the SDK, ignored by Vesper
 )
 
 stream = client.chat.completions.create(
@@ -148,7 +149,7 @@ for chunk in stream:
 
 ## Inline autocomplete (Fill-in-the-Middle)
 
-If a tool sends a `prompt` plus a `suffix`, Solo runs the model in FIM mode — perfect for inline code completion:
+If a tool sends a `prompt` plus a `suffix`, Vesper runs the model in FIM mode — ideal for inline code completion:
 
 ```bash
 curl http://localhost:18741/v1/completions \
@@ -164,25 +165,25 @@ The Qwen Coder, DeepSeek Coder, and Code Llama families all support FIM and prod
 
 ## Choosing a model
 
-Open **Model Hub** in Solo to see what's downloaded. Some recommendations for coding work:
+Open **Models** in Vesper to see what's downloaded. Some recommendations for coding work:
 
 | Use case | Model | Why |
 |---|---|---|
-| General coding chat | `qwen2.5-coder-14b` | Strong reasoning + code, fits on most laptops |
-| Tight RAM (≤8 GB) | `qwen2.5-coder-7b` | Quality holds up surprisingly well |
+| General coding chat | `qwen2.5-coder-14b` | Strong reasoning + code, fits 16 GB laptops |
+| Tight RAM (≤8 GB) | `qwen2.5-coder-7b` | Strong quality in 8 GB |
 | Inline autocomplete (FIM) | `qwen2.5-coder-7b` or `deepseek-coder-6.7b` | Fast first-token latency |
 | Long context (32k+) | `qwen2.5-coder-14b`, `phi-4` | Bigger context window |
 | Reasoning-heavy refactors | `deepseek-r1-distill-qwen-14b` | Built-in chain-of-thought |
 
-The model ID Solo expects is the filename stem from the Model Hub — e.g. `qwen2.5-coder-7b`, not `qwen/Qwen2.5-Coder-7B-Instruct-GGUF`. You can confirm any model's ID by hitting `GET /v1/models`.
+The model ID Vesper expects is the ID listed by `GET /v1/models`.
 
 ## Using cloud models through the same endpoint
 
-The `/v1/chat/completions` endpoint routes to **any** provider — just prefix the model name. Your IDE keeps pointing at `http://localhost:18741/v1`; Solo handles the dispatch.
+The `/v1/chat/completions` endpoint routes to **any** provider — just prefix the model name. Your IDE keeps pointing at `http://localhost:18741/v1`; Vesper handles the dispatch.
 
 ### Step 1 — Save your provider keys
 
-Open **Settings → AI Providers** and add a key for any provider you want to use. Solo stores keys locally and never sends them anywhere except the provider's own API.
+Open **Settings → AI Providers** and add a key for any provider you want to use. Vesper stores keys locally and never sends them anywhere except the provider's own API (and respects Airplane Lock / Local DLP policies).
 
 ### Step 2 — Pick the prefixed model name
 
@@ -221,14 +222,14 @@ With the dispatcher live you can give each Continue.dev role a different model:
 {
   "models": [
     {
-      "title": "Solo — Claude (cloud)",
+      "title": "Vesper — Claude (cloud)",
       "provider": "openai",
       "model": "anthropic:claude-sonnet-4-20250514",
       "apiBase": "http://localhost:18741/v1",
       "apiKey": "not-needed"
     },
     {
-      "title": "Solo — Qwen Coder (local)",
+      "title": "Vesper — Qwen Coder (local)",
       "provider": "openai",
       "model": "qwen2.5-coder-7b",
       "apiBase": "http://localhost:18741/v1",
@@ -236,7 +237,7 @@ With the dispatcher live you can give each Continue.dev role a different model:
     }
   ],
   "tabAutocompleteModel": {
-    "title": "Solo — FIM (local)",
+    "title": "Vesper — FIM (local)",
     "provider": "openai",
     "model": "qwen2.5-coder-7b",
     "apiBase": "http://localhost:18741/v1",
@@ -245,16 +246,14 @@ With the dispatcher live you can give each Continue.dev role a different model:
 }
 ```
 
-Use the fast local model for inline autocomplete (latency matters) and a cloud model for chat (quality matters). Switch providers without changing the IDE config — just change the `model` field.
+Use a fast local model for inline autocomplete (latency matters) and a larger or cloud model for complex chat tasks.
 
 ## Troubleshooting
 
-**`Connection refused`** — Solo isn't running. Open the desktop app or start the backend manually.
+**`Connection refused`** — Vesper isn't running, or the Local OpenAI `/v1` toggle in **Settings → Developer** is switched off.
 
-**`Model not found`** — The model isn't downloaded yet. Open Model Hub, download it, then sync (`POST /api/v1/local-models/sync` is called automatically on download).
+**`Model not found`** — The model isn't downloaded yet. Open **Models**, download it, then refresh.
 
-**Slow first response** — Local models cold-start on the first request (the GGUF gets memory-mapped). Subsequent requests in the same session are much faster.
+**Slow first response** — Local models cold-start on the first request while the GGUF maps into memory. Subsequent requests in the same session are faster.
 
-**RAM blew up** — You loaded a model too large for your machine. Quit the app to unload it, then pick a smaller variant in Model Hub.
-
-**Streaming feels chunky** — That's normal on CPU inference. GPU acceleration is on the roadmap.
+**High RAM usage** — You loaded a model too large for your machine. Unload it in **Models** and choose a smaller quantization.

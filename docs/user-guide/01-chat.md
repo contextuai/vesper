@@ -1,6 +1,9 @@
 # Chat
 
-The Chat module is the heart of ContextuAI Solo. It's where you have conversations with AI models — either cloud-based (Anthropic, OpenAI, Google) or local models running on your machine.
+The Chat module is the heart of **Vesper**. It's where you have conversations with AI models — either free local GGUF models running on your hardware or BYOK cloud models (Anthropic, OpenAI, Google, AWS Bedrock, Ollama).
+
+- **Built-in Memory Drawer**: Click **Memory** in the chat header to view, add, pin, search, and toggle local auto-recall facts without leaving Chat.
+- **Attachments & RAG**: Drag and drop files or use the paperclip button — files that fit inside the model's context window use Smart Context Bypass, while larger folders in **Local Docs** return hybrid BM25 + vector answers with clickable citations.
 
 ![Chat](../screenshots/001-dashboard-chat.png)
 

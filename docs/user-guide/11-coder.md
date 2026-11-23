@@ -1,6 +1,8 @@
-# 11. Solo Coder — Multi-Agent Mode
+# 11. Vesper Coder — Multi-Agent Mode
 
-Solo Coder turns your project folder into a live coding environment. PR 16 adds **multi-agent support**: instead of a single assistant handling everything, your project gets a **Team** of specialised roles that collaborate on each request.
+> **Vesper v1.2.0 Note:** **Coder** mode is hidden in Vesper's default workspace. It is available when you explicitly click **Unlock Full ContextuAI Solo** under **Settings → About** (toggled via the top `Solo | Coder` pill or `Cmd/Ctrl+Shift+M`).
+
+Coder mode turns your project folder into a live multi-agent coding environment where a team of specialized roles collaborates on each request.
 
 ---
 
