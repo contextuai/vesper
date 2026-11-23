@@ -102,6 +102,26 @@ Backend API returns camelCase (`messageType`, `messageId`, `sessionId`) while fr
 - **Python**: Type hints on signatures, Pydantic v2 models, async FastAPI I/O, PEP 8.
 - **Theming**: Dark/light mode (`class` strategy) with **Vesper Emerald** (`sovereign-emerald`) default for Vesper Lite.
 
+## Release Process & CI
+
+- **Feature/fix PRs do NOT cut releases**: Merging `feat:`, `fix:`, `docs:`, etc. into `main` triggers `.github/workflows/release.yml`, which intentionally skips (`should_release=false`).
+- **Strict trigger rule**: `.github/workflows/release.yml` only creates a tag, builds platform installers, and publishes a GitHub Release on `main` pushes whose squash-merge commit subject strictly matches:
+  `^chore: release (v[0-9]+\.[0-9]+\.[0-9]+(-[0-9]+)?)( \(#[0-9]+\))?$`
+  Non-numeric prereleases (such as `-beta.3`) break the Windows MSI bundler and are rejected.
+- **Exact 4 version files to bump in sync** (never edit `frontend/package-lock.json` or `frontend/src-tauri/Cargo.lock`):
+  1. `frontend/package.json` (`"version"`)
+  2. `frontend/src-tauri/tauri.conf.json` (`"version"`) — checked by `release.yml`
+  3. `frontend/src-tauri/Cargo.toml` (`version = "..."` under `[package]`) — checked by `release.yml`
+  4. `frontend/src-tauri/tauri.lite.conf.json` (`"version"`)
+- **Step-by-step release procedure**:
+  1. Create branch `chore/release-vX.Y.Z` from updated `origin/main`.
+  2. Bump the 4 version files above to `X.Y.Z`.
+  3. Commit (`chore: release vX.Y.Z`), push, and open a PR against `main` with the **exact PR title `chore: release vX.Y.Z`**.
+  4. Wait for all required `PR Checks` (`Build & Type Check`, `Backend Unit Tests (pytest)`, `Playwright E2E`) to pass.
+  5. After explicit user confirmation, **squash-merge** the PR (`gh pr merge <pr#> --squash`). Do **not** manually run `git tag`, `git push origin vX.Y.Z`, or `gh workflow run release.yml` — the squash-merge commit auto-triggers `release.yml`, which creates tag `vX.Y.Z` via the GitHub REST API, builds Windows/macOS/Linux installers, publishes the GitHub Release, and uploads `latest.json` (containing only platforms whose updater assets exist in `release-assets/`).
+- **Rules**: Never commit directly to `main` or manually push tags.
+- **Living Model Catalog CI**: `.github/workflows/sync-model-catalog.yml` runs daily (`06:00 UTC`) and on `main` pushes touching `catalog/models.json`, `backend/scripts/sync_catalog_json.py`, or the workflow file, deploying to GitHub Pages (`https://contextuai.github.io/vesper/models.json`) via `actions/deploy-pages@v4`.
+
 ## Testing
 - **E2E (Playwright)**: `frontend/tests/e2e/` (Chromium, single worker; global setup seeds wizard completion and `local` AI mode). Requires backend on `18741` and Vite on `1420`.
 - **Backend (pytest)**: `backend/tests/` (`CONTEXTUAI_MODE=desktop`).
