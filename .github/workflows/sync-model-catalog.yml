@@ -3,13 +3,27 @@ name: Sync Living Model Catalog
 on:
   schedule:
     - cron: "0 6 * * *" # Daily at 06:00 UTC
+  push:
+    branches:
+      - main
+    paths:
+      - "catalog/models.json"
+      - "backend/scripts/sync_catalog_json.py"
+      - ".github/workflows/sync-model-catalog.yml"
   workflow_dispatch:
 
 permissions:
-  contents: write
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: "pages-catalog"
+  cancel-in-progress: false
 
 jobs:
-  sync-catalog:
+  build-catalog:
+    name: Build Living Model Catalog
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -21,17 +35,57 @@ jobs:
       - name: Install httpx
         run: pip install httpx
 
-      - name: Discover newly trending verified GGUF models
-        run: python backend/scripts/sync_catalog_json.py
-
-      - name: Commit updated catalog/models.json if changed
+      - name: Build GitHub Pages catalog bundle
         run: |
-          if git diff --quiet catalog/models.json; then
-            echo "No new catalog updates today."
-            exit 0
-          fi
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add catalog/models.json
-          git commit -m "chore(catalog): daily sync of trending GGUF models"
-          git push
+          python backend/scripts/sync_catalog_json.py \
+            --base catalog/models.json \
+            --site-dir _site \
+            --live-url "https://contextuai.github.io/vesper/models.json" \
+            --max-trending 25
+
+      - name: Validate generated catalog bundle
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+
+          site_dir = Path("_site")
+          manifest_path = site_dir / "models.json"
+          index_path = site_dir / "index.html"
+          nojekyll_path = site_dir / ".nojekyll"
+
+          assert manifest_path.is_file(), "Missing _site/models.json"
+          assert index_path.is_file(), "Missing _site/index.html"
+          assert nojekyll_path.is_file(), "Missing _site/.nojekyll"
+
+          data = json.loads(manifest_path.read_text(encoding="utf-8"))
+          models = data.get("models")
+          assert isinstance(models, list) and len(models) > 0, "Empty models list"
+
+          for model in models:
+              for field in ("id", "name", "hf_repo", "hf_filename"):
+                  assert model.get(field), "Missing required field: " + field
+              assert float(model.get("size_gb") or 0) > 0, "Invalid size_gb for " + str(model.get("id"))
+
+          print("Validated catalog models:", len(models))
+          PY
+
+      - name: Setup Pages
+        uses: actions/configure-pages@v5
+
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: "_site"
+
+  deploy-catalog:
+    name: Deploy to GitHub Pages
+    runs-on: ubuntu-latest
+    needs: build-catalog
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

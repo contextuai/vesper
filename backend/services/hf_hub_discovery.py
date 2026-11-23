@@ -50,7 +50,7 @@ DEFAULT_OTA_CATALOG_URL = os.getenv(
     "VESPER_CATALOG_URL",
     os.getenv(
         "CATALOG_JSON_URL",
-        "https://raw.githubusercontent.com/contextuai/vesper/main/catalog/models.json",
+        "https://contextuai.github.io/vesper/models.json",
     ),
 )
 _MEIPASS = getattr(sys, "_MEIPASS", None)

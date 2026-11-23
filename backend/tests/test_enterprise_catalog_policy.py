@@ -75,7 +75,7 @@ def _isolate_enterprise_env(tmp_path, monkeypatch):
 
 
 def test_default_ota_catalog_url_updated():
-    assert "contextuai/vesper/main/catalog/models.json" in hhd.DEFAULT_OTA_CATALOG_URL
+    assert "contextuai.github.io/vesper/models.json" in hhd.DEFAULT_OTA_CATALOG_URL
 
 
 def test_policy_precedence_env_over_admin_over_user(tmp_path, monkeypatch):
