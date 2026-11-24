@@ -60,7 +60,7 @@ Tauri Shell (Rust)  →  React SPA (port 1420)  →  FastAPI Sidecar (port 18741
 - DB path: `~/.contextuai-solo/data/contextuai.db`
 
 ### Local AI Models (`routers/local_models.py`, `services/local_model_service.py`)
-GGUF models stored in `~/.contextuai-solo/models/`. Inference via `llama-cpp-python` with automatic GPU offload (Apple Metal / NVIDIA CUDA / Vulkan) and CPU fallback, tunable via `LOCAL_MODEL_GPU_LAYERS`.
+GGUF models stored in `~/.contextuai-solo/models/`. Inference via `llama-cpp-python` (Apple Metal on macOS Apple Silicon; CPU-only in current Windows/Linux CI release builds with `-DGGML_NATIVE=OFF`; CUDA/Vulkan available when compiled from source), tunable via `LOCAL_MODEL_GPU_LAYERS`.
 - Hardware-aware model recommendations via `services/hardware.py` and `services/model_fit_engine.py`.
 - OTA model catalog discovery via `services/hf_hub_discovery.py` (`https://contextuai.github.io/vesper/models.json`, deployed daily via GitHub Pages by `.github/workflows/sync-model-catalog.yml`).
 - Frontend `AiModeProvider` (`contexts/ai-mode-context.tsx`) detects local models (`provider` case-insensitive `"local"` or `local:`/`local-` prefixes) and syncs with `chat.tsx` (`aiModeRef` + sequence guard).

@@ -18,7 +18,7 @@ Configure the cloud and Ollama AI models available throughout **Vesper** (downlo
 
 | Provider | Key Required | Notes |
 |----------|-------------|-------|
-| Local AI (Built-in) | No | Free GGUF models on your GPU (Metal/CUDA/Vulkan) or CPU |
+| Local AI (Built-in) | No | Free GGUF models running locally (Apple Metal on macOS; CPU in Windows/Linux release builds; CUDA/Vulkan when compiled from source) |
 | Anthropic Claude | Yes | Claude Sonnet, Opus, Haiku |
 | OpenAI | Yes | GPT-4o, GPT-4o mini, o-series |
 | Google Gemini | Yes | Gemini Flash / Pro |

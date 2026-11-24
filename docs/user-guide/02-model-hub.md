@@ -43,24 +43,27 @@ Anthropic, OpenAI, Google Gemini, and Ollama models are discovered live, so the 
 
 ## Local AI Models
 
-Local models run entirely on your CPU — no internet, no API keys, completely private.
+Local GGUF models run entirely on your machine (Apple Metal on Apple Silicon macOS; CPU in Windows and Linux release builds) — no internet, no API keys, completely private.
 
 ![Models Installed](../screenshots/003-ModelsInstalled.png)
 
-### Available Models
+### Built-in Catalog & Hardware X-Ray
 
-| Model | Size | Best For |
-|-------|------|----------|
-| **Gemma 3 1B** | ~1 GB | Fast responses, simple tasks |
-| **Qwen 2.5 1.5B** | ~1.5 GB | Balanced speed and quality |
-| **Phi-3 Mini** | ~2 GB | More capable reasoning |
+Vesper ships with **41 curated GGUF models** across 9 families (Qwen 3.5 / 3 / 2.5 Coder, Gemma 4 / 3, DeepSeek R1, Llama 3, Mistral, Phi-4) plus live discovery across **140,000+ GGUF models on Hugging Face** and Enterprise `models.json` catalog overrides:
+
+| Your RAM | Example Local Models | Best For |
+|----------|----------------------|----------|
+| **4 GB** | Qwen 3.5 0.8B, Gemma 3 1B, Llama 3.2 1B | Fast triage and quick local tests |
+| **8 GB** | Qwen 3.5 4B, Qwen 3 8B, DeepSeek R1 7B, Qwen 2.5 Coder 7B | Daily chat and local IDE coding |
+| **16 GB** | Qwen 3.5 9B, Qwen 3 14B, Phi-4 14B, DeepSeek R1 14B | Stronger reasoning and long context |
+| **32 GB+** | Qwen 3.5 35B-A3B, Qwen 3 32B, Gemma 4 31B, DeepSeek R1 32B | Heavy analysis and local multi-step tasks |
 
 ### Downloading a Model
 
-1. Expand the **Local AI (Built-in)** card in AI Providers.
-2. Find the model you want and click **Download**.
-3. A progress bar shows the download status.
-4. Once downloaded, the model appears with a "Downloaded" badge.
+1. Open **Models** in the sidebar — Hardware X-Ray automatically scores each model against your detected RAM and GPU.
+2. Find a model that fits your hardware and click **Download**.
+3. A progress bar tracks the ranged-HTTPS download, followed by **SHA-256 verification** (required when Enterprise policy enforces checksums).
+4. Once downloaded, the model appears with a **"Downloaded"** badge and is ready in **Chat**.
 
 Models are stored in `~/.contextuai-solo/models/` as GGUF files.
 

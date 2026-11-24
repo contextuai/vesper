@@ -83,22 +83,15 @@ The library browser opens as a panel within the wizard:
 - Click an agent to add it to your crew
 - The agent's name, role, and instructions are pre-filled from the library
 
-### Step 4: Connections
+### Step 4: Tools, Knowledge & Approvals
 
 ![Crew Approvals](../screenshots/013-CrewApprovals.png)
 
-Optionally bind your crew to social channels:
+> **Vesper v1.2.0 Note:** Legacy social publishing channels (`Telegram`, `Discord`, `LinkedIn`, `Twitter/X`, `Instagram`, `Facebook`, `Reddit`) and legacy SQL warehouse connectors were retired in Vesper `v1.2.0` (`#75`/`#80`).
 
-- **Telegram** — send/receive via bot
-- **Discord** — send/receive via bot
-- **LinkedIn** — post updates
-- **Twitter/X** — post tweets
-- **Instagram** — post content
-- **Facebook** — post updates
+Optionally bind your crew to local **Knowledge Bases** and **Tools & MCP** connectors (MCP servers, REST APIs, local file tools, web search), and enable **"Require approval"** gates so the crew pauses in your **Approvals** queue before executing sensitive tool calls or finalizing deliverables.
 
-For each channel you can enable **"Require approval before sending"** — the crew will pause and wait for your approval before posting to that platform.
-
-This step is optional — skip it if your crew doesn't need social integration.
+This step is optional — skip it if your crew runs purely on prompt context.
 
 ### Step 5: Review
 
@@ -106,7 +99,7 @@ Review your full configuration:
 
 - Crew name, description, execution mode, AI model
 - Agent team list (for non-autonomous crews)
-- Connected channels with approval settings
+- Bound Knowledge Bases, tools, and approval settings
 - Click **Create Crew** to finalize
 
 ## Running a Crew
@@ -150,7 +143,7 @@ Each crew card shows:
 - **Start with Sequential mode** — it's the easiest to understand and debug. Agent A's output feeds into Agent B.
 - **Use Blueprints** in Step 1 to pre-fill your crew description with a proven workflow template.
 - **Browse the library** instead of writing agent instructions from scratch — the pre-built agents have detailed, production-ready prompts.
-- **Enable approval for social channels** until you trust the output quality — you don't want to auto-post something embarrassing.
+- **Enable approval gates** for crews that call external tools or MCP write operations until you trust their output quality.
 - **Keep autonomous crews small** — set a low invocation limit (5–10) and budget ($1–$5) while you're learning how they behave.
 - **Check the Runs tab** regularly to monitor costs and catch failures early.
 - **Run crews at zero cost with Ollama** — if you have an Ollama provider configured under Settings → AI Providers, select any of its models as the crew's AI model. Crew agents run fully offline and free against your local Ollama server.

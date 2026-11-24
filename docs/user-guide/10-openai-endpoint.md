@@ -2,7 +2,7 @@
 
 **Vesper** exposes an **OpenAI-compatible HTTP API** on `http://localhost:18741`. Any tool that speaks the OpenAI Chat Completions or legacy Completions protocol can use Vesper as its model backend — no internet, no API costs, and your code stays on your machine.
 
-Tested with: **Continue.dev**, **Cline / Roo Code**, **Cursor**, **Aider**, **Tabby**, **Cody**, **Zed**, and any OpenAI SDK client.
+Tested with: **Hey Spark** (local voice assistant), **Continue.dev**, **Cline / Roo Code**, **Cursor**, **Aider**, **Tabby**, **Cody**, **Zed**, and any OpenAI SDK client.
 
 ## What you get
 

@@ -1,5 +1,7 @@
 # Workspace
 
+> **Vesper v1.2.0 Note:** Workspace projects are part of opt-in **Advanced Mode / Full Solo** (consolidated under **Workspace** `/crews`). Enable **Advanced Mode** in **Settings → Developer** to access it from the sidebar.
+
 The Workspace is where you run multi-agent projects. Create a project, assign agents, execute it, and review the results — all in one place.
 
 ![Workspace](../screenshots/011-Workspace.png)

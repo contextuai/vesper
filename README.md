@@ -2,7 +2,9 @@
 
 ### Quiet, sovereign AI on your desktop — by ContextuAI
 
-[![Website](https://img.shields.io/badge/GitHub-contextuai%2Fvesper-10B981.svg)](https://github.com/contextuai/vesper)
+[![Website](https://img.shields.io/badge/Website-contextuai.com%2Fvesper-1D5C43.svg)](https://contextuai.com/vesper)
+[![Docs](https://img.shields.io/badge/Docs-contextuai.com%2Fdocs-10B981.svg)](https://contextuai.com/docs)
+[![GitHub](https://img.shields.io/badge/GitHub-contextuai%2Fvesper-181717.svg)](https://github.com/contextuai/vesper)
 [![License](https://img.shields.io/badge/License-Apache%202.0%20with%20Commons%20Clause-blue.svg)](LICENSE)
 [![Version](https://img.shields.io/badge/version-1.2.0-brightgreen.svg)]()
 [![Tauri](https://img.shields.io/badge/Built%20with-Tauri%20v2-FFC131.svg)](https://tauri.app/)
@@ -72,7 +74,7 @@ Need multi-agent orchestration?
 
 ## Hardware & Local Model Fit
 
-Vesper detects your system RAM and GPU automatically (Apple Metal, NVIDIA CUDA, or Vulkan) and falls back cleanly to CPU:
+Vesper inspects your system RAM and GPU automatically to score model fit and recommend compatible GGUF quantizations. Pre-built **macOS (Apple Silicon)** releases use **Apple Metal**; pre-built **Windows and Linux** release binaries currently run CPU inference (CUDA and Vulkan offload are available when building `llama-cpp-python` from source):
 
 | Your RAM | Example Local Models |
 |----------|----------------------|
@@ -82,6 +84,8 @@ Vesper detects your system RAM and GPU automatically (Apple Metal, NVIDIA CUDA, 
 | 32 GB+ | Qwen 3.5 35B-A3B, Qwen 3 32B, DeepSeek R1 32B, Gemma 3 27B |
 
 Set `LOCAL_MODEL_GPU_LAYERS=0` to force CPU execution, or connect **Anthropic Claude**, **OpenAI**, **Google Gemini**, **AWS Bedrock**, **Ollama**, or any **OpenAI-Compatible** `/v1` endpoint in **Settings → AI Providers**.
+
+Pair Vesper's local `/v1` server (`http://localhost:18741/v1`) with **[Hey Spark](https://github.com/contextuai/hey-spark)** (MIT open-source local voice assistant) or your IDE (**Cursor**, **Continue.dev**, **Cline**, **Aider**, **Zed**) for a 100% local voice + coding stack.
 
 ---
 
