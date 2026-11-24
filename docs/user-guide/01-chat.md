@@ -33,15 +33,15 @@ The model dropdown in the input area lets you choose which AI model to use. You'
 
 Use the **"All models"** toggle to see models from all providers, regardless of your current AI mode.
 
-## Personas
+## Tools & MCP (Connectors)
 
-Personas customize how the AI behaves. Select one from the persona dropdown in the input area.
+Attach a connector from **Tools & MCP** (MCP servers, web search, REST APIs, local file tools, or custom assistant prompts) directly from the connector dropdown in the input area.
 
-- Each persona has a name and description to help you choose.
-- Select **"None (default)"** to use the AI without a persona.
-- Persona selection persists with each session.
+- Each connector shows its name and description so you can pick the right toolset.
+- Select **"None (default)"** to chat without an attached connector.
+- Connector selection persists with each session.
 
-See the [Personas guide](03-personas.md) for creating your own.
+See the [Tools & MCP guide](03-personas.md) for configuring MCP servers and custom connectors.
 
 ## Chat Sessions
 

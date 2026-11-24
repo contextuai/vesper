@@ -1,5 +1,7 @@
 # Agents
 
+> **Vesper v1.2.0 Note:** **Agents** (`/agents`) is hidden in Vesper's default 5-tab navigation. Enable **Advanced Mode** under **Settings → Developer** to reveal Agents in the sidebar, and click **Settings → About → Unlock Full ContextuAI Solo** if you want the 96-agent business library seeded.
+
 The Agent Library contains 96 pre-built business agents organized by department. Each agent is a specialized AI role with a detailed system prompt, recommended tools, and domain expertise. You can also create your own custom agents.
 
 ![Agent Library](../screenshots/006-AgentLibrary.png)
